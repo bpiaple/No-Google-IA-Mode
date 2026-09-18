@@ -18,7 +18,7 @@
    } ],
    "default_locale": "fr",
    "description": "Extension de la Ville de Rimouski pour supprimer le mode IA de Google dans le moteur de recherche.",
-   "homepage_url": "https://www.aicontentshield.app",
+   "homepage_url": "https://www.rimouski.ca",
    "host_permissions": [],
    "icons": {
       "128": "icons/icon128.png",
@@ -30,8 +30,7 @@
    "manifest_version": 3,
    "name": "Ville de Rimouski / Pas de Mode IA Google",
    "permissions": [ "storage", "activeTab", "scripting", "tabs" ],
-   "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "1.0.0",
+   "version": "1.0.4",
    "web_accessible_resources": [ {
       "matches": [ "\u003Call_urls>" ],
       "resources": [ "icons/*" ]

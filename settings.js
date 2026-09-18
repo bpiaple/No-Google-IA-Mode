@@ -390,7 +390,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Initialize toggles (add dark mode toggle)
   const toggles = {
     isEnabled: document.getElementById('isEnabled'),
-    blockSearchAIOverview: document.getElementById('blockSearchAIOverview'),
+    // blockSearchAIOverview: document.getElementById('blockSearchAIOverview'),
     blockXAITweets: document.getElementById('blockXAITweets'),
     blockYouTubeAI: document.getElementById('blockYouTubeAI'),
     blockGmailEmails: document.getElementById('blockGmailEmails'),
@@ -633,9 +633,9 @@ document.addEventListener('DOMContentLoaded', async () => {
           }
         }
         
-        if (key === 'blockSearchAIOverview') {
-          chrome.storage.local.set({ blockSearchAIOverview: element.checked });
-        }
+        // if (key === 'blockSearchAIOverview') {
+        //   chrome.storage.local.set({ blockSearchAIOverview: element.checked });
+        // }
         if (key === 'blockYouTubeAI') {
           chrome.storage.local.set({ blockYouTubeAI: element.checked });
         }

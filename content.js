@@ -18764,24 +18764,25 @@ function updateToggleState() {
  * Inject toggle switch next to "People also ask" section
  */
 function injectToggleSwitch() {
-    // Only inject once
-    if (toggleInjected)
-        return;
-    // Check if toggle already exists in DOM
-    if (document.querySelector('[data-aics-toggle="true"]')) {
-        toggleInjected = true;
-        return;
-    }
-    // Check if blockSearchAIOverview is enabled globally
-    chrome.storage.sync.get(['settings'], (syncResult) => {
-        const settings = syncResult.settings || {};
-        // If blockSearchAIOverview is explicitly disabled, don't inject the toggle
-        if (settings.blockSearchAIOverview === false) {
-            return;
-        }
-        // Continue with injection
-        injectToggleSwitchInternal();
-    });
+    return;
+    // // Only inject once
+    // if (toggleInjected)
+    //     return;
+    // // Check if toggle already exists in DOM
+    // if (document.querySelector('[data-aics-toggle="true"]')) {
+    //     toggleInjected = true;
+    //     return;
+    // }
+    // // Check if blockSearchAIOverview is enabled globally
+    // chrome.storage.sync.get(['settings'], (syncResult) => {
+    //     const settings = syncResult.settings || {};
+    //     // If blockSearchAIOverview is explicitly disabled, don't inject the toggle
+    //     if (settings.blockSearchAIOverview === false) {
+    //         return;
+    //     }
+    //     // Continue with injection
+    //     injectToggleSwitchInternal();
+    // });
 }
 /**
  * Internal function to actually inject the toggle switch
@@ -19042,7 +19043,9 @@ function observeGoogleAIOverview() {
 }
 function runGoogleBlocking() {
     (0,common/* getGoogleBlockingSetting */.br)((enabled) => {
-        blockSearchAIOverview = enabled;
+        // blockSearchAIOverview = enabled;
+        // Google AI answers are mandatory and cannot be disabled by page or user settings.
+        blockSearchAIOverview = true;
         if (blockSearchAIOverview) {
             const blocked = hideGoogleAIOverviewImmediate();
             observeGoogleAIOverview();
@@ -19061,12 +19064,12 @@ function runGoogleBlocking() {
             google_currentPageBlockedCount = 0;
             (0,badge/* updateBadge */.b)(0);
         }
-        // Try to inject toggle switch (works regardless of blocking state)
-        setTimeout(() => {
-            if (!toggleInjected && !document.querySelector('[data-aics-toggle="true"]')) {
-                injectToggleSwitch();
-            }
-        }, 500);
+        // // Try to inject toggle switch (works regardless of blocking state)
+        // setTimeout(() => {
+        //     if (!toggleInjected && !document.querySelector('[data-aics-toggle="true"]')) {
+        //         injectToggleSwitch();
+        //     }
+        // }, 500);
     });
 }
 function setupGoogleBlocking() {
