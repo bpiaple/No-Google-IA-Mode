@@ -1,0 +1,189 @@
+Shared Social Icons Styles
+
+/* Footer social icons (larger - 36px) */
+.aics-social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f7f8fa;
+  box-shadow: 0 1px 4px rgba(33,150,243,0.07);
+  transition: box-shadow 0.2s, transform 0.2s;
+  text-decoration: none;
+  outline: none;
+}
+
+.aics-social-icon:hover, .aics-social-icon:focus {
+  box-shadow: 0 2px 8px rgba(33,150,243,0.18);
+  transform: translateY(-2px) scale(1.08);
+}
+
+.aics-social-icon img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+/* Medium share icons (32px) for quick share sections */
+.aics-share-icon, .share-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: box-shadow 0.2s, transform 0.2s;
+  text-decoration: none;
+  outline: none;
+}
+
+.aics-share-icon:hover, .aics-share-icon:focus,
+.share-icon:hover, .share-icon:focus {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transform: translateY(-1px) scale(1.05);
+}
+
+.aics-share-icon img, .share-icon img {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+/* Small popup share icons (28px) for space-constrained areas */
+.popup-share-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  transition: box-shadow 0.2s, transform 0.2s;
+  text-decoration: none;
+  outline: none;
+}
+
+.popup-share-icon:hover, .popup-share-icon:focus {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  transform: translateY(-1px);
+}
+
+.popup-share-icon img {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+/* Footer layout styles */
+.aics-footer-icons {
+  display: flex;
+  flex-direction: row;
+  gap: 14px;
+  margin: 0;
+}
+
+.aics-footer-social-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 0;
+}
+
+.aics-footer-msg, .footer-msg {
+  font-size: 0.98em;
+  font-weight: 700;
+  color: #444;
+  margin: 0 10px 0 0;
+}
+
+.footer-icons {
+  display: flex;
+  flex-direction: row;
+  gap: 14px;
+  margin: 0;
+}
+
+.footer-social-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 0;
+}
+
+/* Share layout styles */
+.share-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Divider styles */
+.aics-footer-divider, .footer-divider, .popup-footer-divider {
+  width: 100%;
+  height: 1px;
+  background: #e0e0e0;
+}
+
+.aics-footer-divider {
+  margin: 18px 0 12px 0;
+}
+
+.footer-divider {
+  margin: 18px 0 12px 0;
+}
+
+.popup-footer-divider {
+  margin: 1px 0 0 0;
+}
+
+/* Dark mode styles for social elements */
+body.theme-dark .aics-social-icon {
+  background: #2d2d2d !important;
+  box-shadow: 0 1px 4px rgba(255,255,255,0.07) !important;
+}
+
+body.theme-dark .aics-social-icon:hover,
+body.theme-dark .aics-social-icon:focus {
+  box-shadow: 0 2px 8px rgba(255,255,255,0.15) !important;
+}
+
+body.theme-dark .aics-share-icon,
+body.theme-dark .share-icon {
+  background: #2d2d2d !important;
+  box-shadow: 0 1px 3px rgba(255,255,255,0.1) !important;
+}
+
+body.theme-dark .aics-share-icon:hover,
+body.theme-dark .aics-share-icon:focus,
+body.theme-dark .share-icon:hover,
+body.theme-dark .share-icon:focus {
+  box-shadow: 0 2px 6px rgba(255,255,255,0.15) !important;
+}
+
+body.theme-dark .popup-share-icon {
+  background: #2d2d2d !important;
+  box-shadow: 0 1px 2px rgba(255,255,255,0.1) !important;
+}
+
+body.theme-dark .popup-share-icon:hover,
+body.theme-dark .popup-share-icon:focus {
+  box-shadow: 0 2px 4px rgba(255,255,255,0.15) !important;
+}
+
+body.theme-dark .aics-footer-msg,
+body.theme-dark .footer-msg {
+  color: #f1f1f1 !important;
+}
+
+body.theme-dark .aics-footer-divider,
+body.theme-dark .footer-divider,
+body.theme-dark .popup-footer-divider {
+  background: #3d3d3d !important;
+}

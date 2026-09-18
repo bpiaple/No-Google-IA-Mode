@@ -1,0 +1,1115 @@
+{
+   "aboutExtension": {
+      "message": "About extension"
+   },
+   "activateHere": {
+      "message": "Activate here"
+   },
+   "advancedAnalytics": {
+      "message": "Advanced local private analytics"
+   },
+   "advancedSettings": {
+      "message": "Advanced Settings"
+   },
+   "aggressiveBlocking": {
+      "message": "Aggressive blocking"
+   },
+   "aggressiveBlockingDesc": {
+      "message": "Block more AI content (may have false positives)"
+   },
+   "aiContentShieldUpdated": {
+      "message": "AI Content Shield has been updated"
+   },
+   "aiHashtagModalExploreInstagram": {
+      "message": "Explore"
+   },
+   "aiHashtagModalExploreInstagramAriaLabel": {
+      "message": "Go to Instagram explore"
+   },
+   "aiHashtagModalHomeInstagram": {
+      "message": "Home"
+   },
+   "aiHashtagModalHomeInstagramAriaLabel": {
+      "message": "Go to Instagram home"
+   },
+   "aiHashtagModalMessage": {
+      "message": "This video contains AI-generated content."
+   },
+   "aiHashtagModalMessageInstagram": {
+      "message": "This post contains AI-generated content."
+   },
+   "aiItemsForYou": {
+      "message": "AI items for you"
+   },
+   "aiPinModalAriaLabel": {
+      "message": "AI generated pin warning"
+   },
+   "aiPinModalCloseAriaLabel": {
+      "message": "Close AI pin modal"
+   },
+   "aiPinModalMessage": {
+      "message": "This pin is AI-generated."
+   },
+   "aiPinModalShow": {
+      "message": "Show"
+   },
+   "aiPinModalShowAriaLabel": {
+      "message": "Show AI-generated pin"
+   },
+   "aiPinModalTitle": {
+      "message": "AI Content Shield"
+   },
+   "aiVoiceModalAriaLabel": {
+      "message": "AI voice detection warning"
+   },
+   "aiVoiceModalClose": {
+      "message": "Close"
+   },
+   "aiVoiceModalCloseAriaLabel": {
+      "message": "Close AI voice detection modal"
+   },
+   "aiVoiceModalHome": {
+      "message": "Home"
+   },
+   "aiVoiceModalHomeAriaLabel": {
+      "message": "Go to YouTube home"
+   },
+   "aiVoiceModalMessage": {
+      "message": "This video uses AI sound (voice/music)."
+   },
+   "aiVoiceModalSubscriptions": {
+      "message": "Subscriptions"
+   },
+   "aiVoiceModalSubscriptionsAriaLabel": {
+      "message": "Go to YouTube subscriptions"
+   },
+   "aiVoiceModalTitle": {
+      "message": "AI Content Shield"
+   },
+   "allFreeFeatures": {
+      "message": "All Free features, plus:"
+   },
+   "allFreeFeaturesPlus": {
+      "message": "What you unlock with PRO:"
+   },
+   "alreadyHavePro": {
+      "message": "Already have PRO?"
+   },
+   "altBluesky": {
+      "message": "Bluesky"
+   },
+   "altCopyLink": {
+      "message": "Copy Link"
+   },
+   "altDiscord": {
+      "message": "Discord"
+   },
+   "altFacebook": {
+      "message": "Facebook"
+   },
+   "altInstagram": {
+      "message": "Instagram"
+   },
+   "altLinkedIn": {
+      "message": "LinkedIn"
+   },
+   "altThreads": {
+      "message": "Threads"
+   },
+   "altX": {
+      "message": "X"
+   },
+   "altXTwitter": {
+      "message": "X (Twitter)"
+   },
+   "billedMonthly": {
+      "message": "billed monthly"
+   },
+   "billedYearly": {
+      "message": "billed yearly"
+   },
+   "blockAIAnswers": {
+      "message": "Block AI answers"
+   },
+   "blockAIAnswersTooltip": {
+      "message": "Block AI answers & results - AI Content Shield"
+   },
+   "blockAiContentOn": {
+      "message": "BLOCK AI CONTENT ON"
+   },
+   "blockAiGeneratedText": {
+      "message": "Block AI-generated text on LinkedIn, Facebook"
+   },
+   "blockAiRelatedArticles": {
+      "message": "Block AI-related articles on top news sites"
+   },
+   "blockAiRelatedMail": {
+      "message": "Block AI-related mail on Gmail"
+   },
+   "blockAiSummaries": {
+      "message": "Block AI summaries on Amazon and Ebay"
+   },
+   "blockAiVoicedVideos": {
+      "message": "Block AI-enhanced videos on Youtube(AI Voice)"
+   },
+   "blockAmazonEbayAISummaries": {
+      "message": "Block Amazon & eBay AI summaries"
+   },
+   "blockAmazonEbayAISummariesDesc": {
+      "message": "Hide AI-generated review summaries and description highlights"
+   },
+   "blockChannelAriaLabel": {
+      "message": "Block this channel"
+   },
+   "blockChannelButton": {
+      "message": "Block Channel"
+   },
+   "blockFacebookAIPosts": {
+      "message": "Block AI-gen content on LinkedIn & Facebook"
+   },
+   "blockFacebookAIPostsDesc": {
+      "message": "Remove AI-gen posts on LinkedIn and FB"
+   },
+   "blockFacebookThreadsAIPosts": {
+      "message": "Block tagged AI-generated, AI-related posts on \u003Cb>Facebook\u003C/b> & \u003Cb>Threads\u003C/b>"
+   },
+   "blockGeneralAIPosts": {
+      "message": "Block AI-related content on \u003Cb>other websites\u003C/b>"
+   },
+   "blockGmailEmails": {
+      "message": "Block AI features, AI-related emails in Gmail"
+   },
+   "blockGmailEmailsDesc": {
+      "message": "Hide AI Features, AI-related emails (Promotions & Social tabs) in Gmail"
+   },
+   "blockInstagramAIPosts": {
+      "message": "Block tagged AI-generated, AI-related posts on \u003Cb>Instagram\u003C/b>, \u003Cb>Facebook\u003C/b> &amp; \u003Cb>Threads\u003C/b>"
+   },
+   "blockLinkedInFacebookAIContent": {
+      "message": "Block AI-gen posts on LinkedIn & Facebook"
+   },
+   "blockLinkedInFacebookAIContentDesc": {
+      "message": "Hide long AI-generated posts and summaries on LinkedIn and Facebook."
+   },
+   "blockMoreWithPro": {
+      "message": "Unlock full AI blocking"
+   },
+   "blockNewsAIContent": {
+      "message": "Block AI-related content on news sites"
+   },
+   "blockNewsAIContentDesc": {
+      "message": "Enable AI content blocking on top news websites (NYTimes, CNN, BBC, Fox, etc.)"
+   },
+   "blockPinterestAIPosts": {
+      "message": "Block AI-generated, AI-related posts on \u003Cb>Pinterest\u003C/b>"
+   },
+   "blockRedditAIPosts": {
+      "message": "Block AI answers, AI-related posts on \u003Cb>Reddit\u003C/b>"
+   },
+   "blockSearchAIOverview": {
+      "message": "Block AI Mode, AI Overviews, AI-sourced images on \u003Cb>Google\u003C/b>, \u003Cb>Bing\u003C/b> & \u003Cb>DuckDuckGo\u003C/b>"
+   },
+   "blockSpotifyYoutubeMusicArtists": {
+      "message": "Block AI artists on \u003Cb>Spotify\u003C/b>, \u003Cb>YouTube Music\u003C/b>, \u003Cb>Apple Music\u003C/b> & \u003Cb>SoundCloud\u003C/b>"
+   },
+   "blockXAIPosts": {
+      "message": "Block AI-generated, AI-related posts, Grok actions on \u003Cb>X.com\u003C/b>"
+   },
+   "blockYouTubeAI": {
+      "message": "Block AI-voiced videos on Youtube"
+   },
+   "blockYouTubeAIDesc": {
+      "message": "Remove videos with AI voices on Youtube"
+   },
+   "blockYouTubeAIVideos": {
+      "message": "Block AI-Generated, AI-Related \u003Cb>YouTube\u003C/b>, \u003Cb>TikTok\u003C/b> videos & summaries"
+   },
+   "blockYouTubeAIVoiceVideos": {
+      "message": "Block AI-voiced YouTube, TikTok, Insta videos"
+   },
+   "blockYouTubeAIVoiceVideosDesc": {
+      "message": "Hide videos with AI-generated voices on YouTube, TikTok, and Instagram."
+   },
+   "blockedThisWeek": {
+      "message": "Blocked this week"
+   },
+   "blockedToday": {
+      "message": "Blocked today"
+   },
+   "blockingRules": {
+      "message": "Blocking Rules"
+   },
+   "bottomCtaText": {
+      "message": "Unlock full AI content blocking across supported sites"
+   },
+   "bronzeBadge": {
+      "message": "Bronze Badge"
+   },
+   "bronzeBenefit": {
+      "message": "Unique Bronze badge"
+   },
+   "bronzeLevel": {
+      "message": "Bronze Level"
+   },
+   "bronzeLevelTitle": {
+      "message": "Bronze Level (1+ install)"
+   },
+   "builtWithLove": {
+      "message": "Built with ❤️ for real content"
+   },
+   "cancelAnytime": {
+      "message": "Cancel anytime"
+   },
+   "cancelSubscription": {
+      "message": "Cancel subscription"
+   },
+   "changelog": {
+      "message": "Changelog"
+   },
+   "channelAlreadyBlockedMessage": {
+      "message": "This channel is already blocked on feeds."
+   },
+   "channelBlockedMessage": {
+      "message": "Channel videos will be blocked on feeds."
+   },
+   "checkEmailTitle": {
+      "message": "Check the email that we sent to you"
+   },
+   "checkingReferrals": {
+      "message": "Checking your referrals..."
+   },
+   "chooseTime": {
+      "message": "Choose Time"
+   },
+   "clickToViewRewards": {
+      "message": "Click to view rewards"
+   },
+   "close": {
+      "message": "Close"
+   },
+   "closeSmartBlockingInfo": {
+      "message": "Close smart blocking information"
+   },
+   "codeVerificationSubtitle": {
+      "message": "Enter the 6 character code that we sent to you to verify your email address."
+   },
+   "contact": {
+      "message": "CONTACT"
+   },
+   "contactSupport": {
+      "message": "Contact support"
+   },
+   "copied": {
+      "message": "Copied!"
+   },
+   "copyButton": {
+      "message": "Copy"
+   },
+   "copyReferralLink": {
+      "message": "Copy referral link"
+   },
+   "copyReferralLinkDescription": {
+      "message": "Copy your referral link to clipboard"
+   },
+   "copyright": {
+      "message": "2026 © AI Content Shield"
+   },
+   "customKeywordFilters": {
+      "message": "YouTube channels & keywords blocking"
+   },
+   "customKeywordFiltersDesc": {
+      "message": "Block specific YouTube channels and filter unwanted keywords across the web."
+   },
+   "customKeywords": {
+      "message": "Custom keywords"
+   },
+   "customKeywordsAddFirst": {
+      "message": "Add your first keyword below."
+   },
+   "customKeywordsAddKeyword": {
+      "message": "Add Keyword"
+   },
+   "customKeywordsCancel": {
+      "message": "Cancel"
+   },
+   "customKeywordsCancelButton": {
+      "message": "Cancel"
+   },
+   "customKeywordsCharCount": {
+      "message": "Characters: {count}/20"
+   },
+   "customKeywordsCountInfo": {
+      "message": "Keywords: {count}/20"
+   },
+   "customKeywordsDesc": {
+      "message": "Add custom keywords to block"
+   },
+   "customKeywordsDuplicateError": {
+      "message": "Keyword already exists"
+   },
+   "customKeywordsEmpty": {
+      "message": "No custom keywords added yet. Type a keyword to get started."
+   },
+   "customKeywordsEnterKeyword": {
+      "message": "Enter keyword..."
+   },
+   "customKeywordsError": {
+      "message": "Error saving keywords. Please try again."
+   },
+   "customKeywordsInvalidError": {
+      "message": "Invalid keyword format"
+   },
+   "customKeywordsMaxReached": {
+      "message": "Maximum keywords reached"
+   },
+   "customKeywordsModalClose": {
+      "message": "Close"
+   },
+   "customKeywordsModalDescription": {
+      "message": "Add up to 20 keywords to block on entire web. Each keyword can be up to 20 characters long."
+   },
+   "customKeywordsModalTitle": {
+      "message": "Custom Keywords"
+   },
+   "customKeywordsNewKeyword": {
+      "message": "New keyword"
+   },
+   "customKeywordsNoKeywords": {
+      "message": "No custom keywords added yet."
+   },
+   "customKeywordsPlaceholder": {
+      "message": "Add new keyword..."
+   },
+   "customKeywordsRemove": {
+      "message": "Remove"
+   },
+   "customKeywordsRemoveButton": {
+      "message": "Remove keyword"
+   },
+   "customKeywordsSave": {
+      "message": "Save Keywords"
+   },
+   "customKeywordsSaveButton": {
+      "message": "Save"
+   },
+   "customKeywordsTooLongError": {
+      "message": "Keyword too long"
+   },
+   "customKeywordsYourKeywords": {
+      "message": "Your Keywords"
+   },
+   "darkMode": {
+      "message": "Dark mode"
+   },
+   "darkModeDesc": {
+      "message": "Switch to dark theme"
+   },
+   "darkModeThemes": {
+      "message": "Dark Mode & UI themes"
+   },
+   "deviceActivatedSuccess": {
+      "message": "Device successfully activated! Your PRO features are now available."
+   },
+   "diamondBadge": {
+      "message": "Diamond Badge"
+   },
+   "diamondBenefit": {
+      "message": "Unique Diamond badge, Extended Free Trial and -60% total \u003Ca href=\"subscribe.html\" target=\"_blank\" class=\"pro-link\">Pro\u003C/a> discount"
+   },
+   "diamondLevel": {
+      "message": "Diamond Level"
+   },
+   "diamondLevelTitle": {
+      "message": "Diamond Level (25+ installs)"
+   },
+   "documentation": {
+      "message": "Documentation"
+   },
+   "editKeywords": {
+      "message": "Filter Content"
+   },
+   "emailAddress": {
+      "message": "Email Address"
+   },
+   "emailVerificationSubtitle": {
+      "message": "We'll use your email address to confirm that you have subscribed before."
+   },
+   "enableExtension": {
+      "message": "\u003Cb>Enable extension\u003C/b>"
+   },
+   "enableExtensionDesc": {
+      "message": "Turn on/off the extension globally"
+   },
+   "enableLogging": {
+      "message": "Enable logging"
+   },
+   "enableLoggingDesc": {
+      "message": "Log blocked content for debugging"
+   },
+   "enableNotifications": {
+      "message": "Enable notifications"
+   },
+   "enableNotificationsDesc": {
+      "message": "Show notifications when AI content is blocked"
+   },
+   "enjoyingExtension": {
+      "message": "Enjoying extension?"
+   },
+   "enterCode": {
+      "message": "000000"
+   },
+   "enterEmailTitle": {
+      "message": "Enter your email address associated with PRO"
+   },
+   "enterYourEmail": {
+      "message": "Enter your email"
+   },
+   "exportSettings": {
+      "message": "Export settings"
+   },
+   "extensionDescription": {
+      "message": "Block AI content across the web. Works like your favorite ad blocker."
+   },
+   "extensionName": {
+      "message": "Ville de Rimouski / Pas de Mode IA Google"
+   },
+   "faq": {
+      "message": "FAQ"
+   },
+   "featureAmazonEbayBlocking": {
+      "message": "Remove AI summaries on Amazon and eBay"
+   },
+   "featureAnalytics": {
+      "message": "Private local analytics (runs on-device)"
+   },
+   "featureCustomKeywords": {
+      "message": "Custom keywords filters"
+   },
+   "featureDarkMode": {
+      "message": "Dark mode + themes"
+   },
+   "featureGmailBlocking": {
+      "message": "Hide AI features, AI-related emails in Gmail"
+   },
+   "featureLinkedInFacebookBlocking": {
+      "message": "Block AI-generated text on LinkedIn, Facebook"
+   },
+   "featureNewsBlocking": {
+      "message": "Filter AI-related articles on top news sites"
+   },
+   "featurePriorityAccess": {
+      "message": "Priority access to new features"
+   },
+   "featureScheduleBlocking": {
+      "message": "Scheduled blocking (by time/day)"
+   },
+   "featureYoutubeBlocking": {
+      "message": "Block AI-voiced videos on YouTube, TikTok & Instagram"
+   },
+   "followOnBluesky": {
+      "message": "Follow AI Content Shield on Bluesky"
+   },
+   "followOnFacebook": {
+      "message": "Follow AI Content Shield on Facebook"
+   },
+   "followOnInstagram": {
+      "message": "Follow AI Content Shield on Instagram"
+   },
+   "followOnLinkedIn": {
+      "message": "Follow AI Content Shield on LinkedIn"
+   },
+   "followOnSocial": {
+      "message": "Follow on social media"
+   },
+   "followOnThreads": {
+      "message": "Follow AI Content Shield on Threads"
+   },
+   "followOnX": {
+      "message": "Follow AI Content Shield on X (Twitter)"
+   },
+   "followUsNonAIContent": {
+      "message": "Follow us for 100% Non-AI content!"
+   },
+   "footerMessages": {
+      "message": "Footer messages"
+   },
+   "footerSliderNavigation": {
+      "message": "Footer slider navigation"
+   },
+   "freeTrialText": {
+      "message": "7 days free PRO trial"
+   },
+   "freeTrialText10Days": {
+      "message": "10 days free PRO trial"
+   },
+   "generalSettings": {
+      "message": "Free Features"
+   },
+   "goldBadge": {
+      "message": "Gold Badge"
+   },
+   "goldBenefit": {
+      "message": "Unique Gold badge, Extended Free Trial and -30% total \u003Ca href=\"subscribe.html\" target=\"_blank\" class=\"pro-link\">Pro\u003C/a> discount"
+   },
+   "goldLevel": {
+      "message": "Gold Level"
+   },
+   "goldLevelTitle": {
+      "message": "Gold Level (10+ installs)"
+   },
+   "googleAIOverviewHidden": {
+      "message": "AI Overview Hidden"
+   },
+   "googleAIOverviewShow": {
+      "message": "Show"
+   },
+   "gotIt": {
+      "message": "Got it!"
+   },
+   "hours": {
+      "message": "hours"
+   },
+   "importSettings": {
+      "message": "Import settings"
+   },
+   "inTotal": {
+      "message": "in total"
+   },
+   "joinDiscord": {
+      "message": "Join AI Content Shield Discord community"
+   },
+   "joinThousandsBlocking": {
+      "message": "Join thousands blocking AI content daily"
+   },
+   "language": {
+      "message": "Language"
+   },
+   "levelBadge": {
+      "message": "Level Badge"
+   },
+   "loadingLevel": {
+      "message": "Loading..."
+   },
+   "loadingReferralLink": {
+      "message": "Loading your referral link..."
+   },
+   "manageSubscription": {
+      "message": "Manage Subscription"
+   },
+   "messageCopiedFacebook": {
+      "message": "Message copied to clipboard! The Facebook sharing dialog will open - you can paste the message there."
+   },
+   "messageCopiedInstagram": {
+      "message": "Message copied to clipboard! Now you can paste it in your Instagram post or story."
+   },
+   "midProCtaText": {
+      "message": "PRO blocks far more AI content across the web"
+   },
+   "milestoneAiItems": {
+      "message": "AI items."
+   },
+   "milestoneCtaButton": {
+      "message": "Unlock PRO"
+   },
+   "milestoneModalSub": {
+      "message": "Start Free Trial to block far more AI content."
+   },
+   "milestoneNotNow": {
+      "message": "Not now"
+   },
+   "milestoneReached": {
+      "message": "Milestone reached!"
+   },
+   "milestoneYouveBlocked": {
+      "message": "You've blocked"
+   },
+   "monthBlocked": {
+      "message": "This Month"
+   },
+   "monthly": {
+      "message": "Monthly"
+   },
+   "monthlyPlan": {
+      "message": "Monthly"
+   },
+   "moreProFeaturesHint": {
+      "message": "Shopping, scheduling, themes, analytics, and more"
+   },
+   "mostPopular": {
+      "message": "Most popular"
+   },
+   "needHelp": {
+      "message": "Need help? Contact support:"
+   },
+   "noChargeTodayCancelAnytime": {
+      "message": "No charge today • Cancel anytime in 2 clicks"
+   },
+   "numberOfItemsBlocked": {
+      "message": "NUMBER OF ITEMS BLOCKED"
+   },
+   "onThisPage": {
+      "message": "on this page"
+   },
+   "operaSearchNoticeDescription": {
+      "message": "Open \u003Ccode>opera://extensions\u003C/code>, open this extension's details, and turn on \u003Cstrong>Allow access to search page results\u003C/strong> so AI blocking works."
+   },
+   "operaSearchNoticeTitle": {
+      "message": "Opera: enable search blocking"
+   },
+   "paymentProvidersAlt": {
+      "message": "Payment Providers"
+   },
+   "perMonth": {
+      "message": "/month"
+   },
+   "pinExtensionDescription": {
+      "message": "Click the puzzle icon in your browser toolbar, then click the pin icon next to \u003Cimg src=\"../icons/icon48.png\" alt=\"AI Content Shield\" class=\"extension-icon-inline\" width=\"20\" height=\"20\" style=\"vertical-align: baseline; margin: 0 2px;\" /> AI Content Shield. This makes the extension always visible for quick access!"
+   },
+   "pinExtensionTitle": {
+      "message": "Pin AI Content Shield for Best Experience"
+   },
+   "pinExtensionTurnOffHint": {
+      "message": "To \u003Cstrong>turn off\u003C/strong> blocking on a specific page or website, simply click the pinned extension icon in your browser toolbar while you're on that page, then switch off the corresponding toggle."
+   },
+   "platformStats": {
+      "message": "By Platform"
+   },
+   "privacyPolicy": {
+      "message": "Privacy Policy"
+   },
+   "pro": {
+      "message": "Pro"
+   },
+   "proBlocksAIAcrossMoreSites": {
+      "message": "PRO blocks AI across more sites by default"
+   },
+   "proDescription": {
+      "message": "Say goodbye to AI content on LinkedIn, Gmail, Amazon, Ebay, news websites, and enjoy exclusive PRO features."
+   },
+   "proFeature": {
+      "message": "Pro feature"
+   },
+   "proFeatureLabel": {
+      "message": "Pro feature"
+   },
+   "proFeatures": {
+      "message": "PRO Features"
+   },
+   "proPrice": {
+      "message": "$4.95"
+   },
+   "proTitle": {
+      "message": "PRO"
+   },
+   "quickShare": {
+      "message": "Quick share:"
+   },
+   "rateAICS": {
+      "message": "RATE AICS"
+   },
+   "rateExtension": {
+      "message": "Rate extension"
+   },
+   "recentActivity": {
+      "message": "Recent Activity"
+   },
+   "referralDescription": {
+      "message": "Copy and share this link with friends to earn rewards"
+   },
+   "renewSubscription": {
+      "message": "Renew subscription"
+   },
+   "reportBug": {
+      "message": "Report a bug"
+   },
+   "requestFeature": {
+      "message": "Request a feature"
+   },
+   "resetSettings": {
+      "message": "Reset settings"
+   },
+   "reviewModalNo": {
+      "message": "No"
+   },
+   "reviewModalText": {
+      "message": "If our extension's making your life easier, please take a moment to leave us a 5‑star review! Your support helps us keep improving and reach more people just like you. As a thank you we'll add a unique badge to the extension popup!"
+   },
+   "reviewModalTitle": {
+      "message": "Enjoying AI Content Shield?"
+   },
+   "rewardLevels": {
+      "message": "Reward Levels"
+   },
+   "rewards": {
+      "message": "Rewards"
+   },
+   "runsLocallyNoDataCollection": {
+      "message": "Runs locally • No data collection"
+   },
+   "save20Percent": {
+      "message": "SAVE 20%"
+   },
+   "saveText": {
+      "message": "Save"
+   },
+   "savesHoursWeekly": {
+      "message": "Saves more hours of AI noise every week"
+   },
+   "scheduleBasedBlocking": {
+      "message": "Schedule-Based Blocking feature"
+   },
+   "scheduleBasedBlockingDesc": {
+      "message": "Automatically block AI content during your chosen hours."
+   },
+   "scheduleBlockingAllDay": {
+      "message": "All Day"
+   },
+   "scheduleBlockingCancelButton": {
+      "message": "Cancel"
+   },
+   "scheduleBlockingEvenings": {
+      "message": "Evenings"
+   },
+   "scheduleBlockingFriday": {
+      "message": "Friday"
+   },
+   "scheduleBlockingModalDescription": {
+      "message": "Choose when AI Content Shield should actively block content. Outside these hours, content will not be blocked."
+   },
+   "scheduleBlockingModalTitle": {
+      "message": "Schedule-Based Blocking"
+   },
+   "scheduleBlockingMonday": {
+      "message": "Monday"
+   },
+   "scheduleBlockingSaturday": {
+      "message": "Saturday"
+   },
+   "scheduleBlockingSaveButton": {
+      "message": "Save Schedule"
+   },
+   "scheduleBlockingSunday": {
+      "message": "Sunday"
+   },
+   "scheduleBlockingThursday": {
+      "message": "Thursday"
+   },
+   "scheduleBlockingTuesday": {
+      "message": "Tuesday"
+   },
+   "scheduleBlockingWednesday": {
+      "message": "Wednesday"
+   },
+   "scheduleBlockingWeeklySchedule": {
+      "message": "Weekly Schedule"
+   },
+   "scheduleBlockingWorkHours": {
+      "message": "Work Hours"
+   },
+   "scheduleControlling": {
+      "message": "By Schedule"
+   },
+   "scheduleManualOverride": {
+      "message": "Manual"
+   },
+   "scheduleTimeAdjusted": {
+      "message": "⚠️ End time adjusted to be after start time"
+   },
+   "seeAllProFeatures": {
+      "message": "See all PRO features"
+   },
+   "selectLanguage": {
+      "message": "Select Language"
+   },
+   "settings": {
+      "message": "Settings"
+   },
+   "settingsPageDescription": {
+      "message": "Customize what you block - and unlock more protection with PRO."
+   },
+   "settingsPageTitle": {
+      "message": "Settings - AI Content Shield"
+   },
+   "settingsTitle": {
+      "message": "Settings"
+   },
+   "sevenDaysTrial": {
+      "message": "7 days free PRO trial"
+   },
+   "shareAndGet": {
+      "message": "Share & Get"
+   },
+   "shareAndGetRewards": {
+      "message": "Share and get Rewards"
+   },
+   "shareDescription": {
+      "message": "Invite friends to install AICS extension and help to make the web more human. Earn awesome rewards for sharing!"
+   },
+   "shareExtension": {
+      "message": "Share extension"
+   },
+   "shareIntentMessage": {
+      "message": "I'm using AI Content Shield to detect & block AI content - saving me time. Install it to make your feed feel human again. @aicontentshield #aicontentshield #aidetector #aicontentblocker"
+   },
+   "shareModalIntentMessage": {
+      "message": "I've blocked $COUNT$ AI items with AI Content Shield.\nHide Google AI Overviews, AI Mode, and AI slop from YouTube and social feeds.\nhttps://www.aicontentshield.app/extension \n@aicontentshield\n#AIOverviews #AISlop #NoAI #AIContentBlocker #AIContentShield",
+      "placeholders": {
+         "COUNT": {
+            "content": "$1",
+            "example": "3,250"
+         }
+      }
+   },
+   "shareModalText": {
+      "message": "If our extension's making your life easier, please take a moment to share it! Your support helps us keep improving and reach more people just like you. As a thank you we'll add a unique badge to the extension popup!"
+   },
+   "shareOnFacebook": {
+      "message": "Share on Facebook"
+   },
+   "shareOnFacebookDescription": {
+      "message": "Share AI Content Shield on Facebook"
+   },
+   "shareOnInstagram": {
+      "message": "Share on Instagram"
+   },
+   "shareOnInstagramDescription": {
+      "message": "Share AI Content Shield on Instagram"
+   },
+   "shareOnThreads": {
+      "message": "Share on Threads"
+   },
+   "shareOnThreadsDescription": {
+      "message": "Share AI Content Shield on Threads"
+   },
+   "shareOnX": {
+      "message": "Share on X"
+   },
+   "shareOnXDescription": {
+      "message": "Share AI Content Shield on X (Twitter)"
+   },
+   "shareReferralLink": {
+      "message": "Share your referral link"
+   },
+   "shareUsToMakeWebHuman": {
+      "message": "Invite friends → earn \u003Ca href=\"share.html\" class=\"aics-hover-link\" style=\"color:#2196f3;text-decoration:none;font-weight:700;transition:color 0.2s;\">rewards\u003C/a>"
+   },
+   "showFirstMessage": {
+      "message": "Show first message"
+   },
+   "showLessFeatures": {
+      "message": "Show less"
+   },
+   "showSecondMessage": {
+      "message": "Show second message"
+   },
+   "showThirdMessage": {
+      "message": "Show third message"
+   },
+   "silverBadge": {
+      "message": "Silver Badge"
+   },
+   "silverBenefit": {
+      "message": "Unique Silver badge, Extended Free Trial and Free Dark Mode \u003Ca href=\"subscribe.html\" target=\"_blank\" class=\"pro-link\">Pro\u003C/a> feature"
+   },
+   "silverLevel": {
+      "message": "Silver Level"
+   },
+   "silverLevelTitle": {
+      "message": "Silver Level (5+ installs)"
+   },
+   "smartBlockingInfo": {
+      "message": "Smart blocking: We don't interfere when you're actively searching for AI terms or visiting AI sites."
+   },
+   "smartBlockingInfoAriaLabel": {
+      "message": "Smart blocking information"
+   },
+   "starIconTooltip": {
+      "message": "You're a Star - Thanks for rating AICS"
+   },
+   "starShareIconTooltip": {
+      "message": "You're a Star - Thanks for sharing AICS"
+   },
+   "startFreeTrial": {
+      "message": "Start free trial"
+   },
+   "statsTitle": {
+      "message": "Blocking Statistics"
+   },
+   "stayConnected": {
+      "message": "Stay connected!"
+   },
+   "stickyCtaMicrocopy": {
+      "message": "Blocks far more AI content • Free trial • Cancel anytime"
+   },
+   "streamingSiteIndicatorDesc": {
+      "message": "Streaming sites work best without content blocking"
+   },
+   "streamingSiteIndicatorTitle": {
+      "message": "Streaming Site Detected - Blocking Disabled"
+   },
+   "streamingSitePopupMessage": {
+      "message": "Blocking is automatically disabled on streaming sites for optimal performance"
+   },
+   "streamingSitePopupTitle": {
+      "message": "Streaming Site Detected"
+   },
+   "submit": {
+      "message": "Submit"
+   },
+   "subscribe": {
+      "message": "Subscribe"
+   },
+   "subscribeButton": {
+      "message": "Subscribe"
+   },
+   "subscribePageDescription": {
+      "message": "Blocks more AI on YouTube, TikTok, Instagram, LinkedIn, Gmail & news sites - plus exclusive PRO features."
+   },
+   "subscriptionActive": {
+      "message": "Your PRO subscription is active"
+   },
+   "subscriptionExpires": {
+      "message": "Expires on"
+   },
+   "successfulReferral": {
+      "message": "successful referral"
+   },
+   "successfulReferrals": {
+      "message": "successful referrals"
+   },
+   "support": {
+      "message": "Support"
+   },
+   "supportAndFeedback": {
+      "message": "Support & Feedback"
+   },
+   "termsOfService": {
+      "message": "Terms of Service"
+   },
+   "thisPage": {
+      "message": "This page:"
+   },
+   "thisWebsite": {
+      "message": "This website:"
+   },
+   "timeSaved": {
+      "message": "Time Saved"
+   },
+   "timeSavedTooltip": {
+      "message": "Estimated using 10 minutes per blocked AI video/article, etc."
+   },
+   "todayBlocked": {
+      "message": "Today"
+   },
+   "totalBlocked": {
+      "message": "Total Blocked"
+   },
+   "tryForFree": {
+      "message": "Enable PRO - Free Trial"
+   },
+   "tryProFreeForDays10": {
+      "message": "Try PRO free for 10 days"
+   },
+   "tryProFreeForDays7": {
+      "message": "Try PRO free for 7 days"
+   },
+   "twoMonthsFree": {
+      "message": "• 2 months free"
+   },
+   "typeStats": {
+      "message": "By Content Type"
+   },
+   "updatePageTitle": {
+      "message": "AI Content Shield Update"
+   },
+   "upgrade": {
+      "message": "Unlock"
+   },
+   "upgradeNow": {
+      "message": "UPGRADE NOW"
+   },
+   "upgradeToPro": {
+      "message": "Upgrade to PRO"
+   },
+   "upgradeToUnlock": {
+      "message": "Upgrade to unlock"
+   },
+   "verificationCode": {
+      "message": "Verification Code"
+   },
+   "version": {
+      "message": "Version"
+   },
+   "viewStats": {
+      "message": "View Stats"
+   },
+   "visitWebsite": {
+      "message": "Visit website"
+   },
+   "weHaveBlocked": {
+      "message": "We blocked"
+   },
+   "weekBlocked": {
+      "message": "This Week"
+   },
+   "whatsNewContent": {
+      "message": "\u003Cb>Improved AI Overviews blocking on Google\u003C/b>|Improved AI content blocking on YouTube, Instagram & FB|Greatly expanded AI artist blocklists for YouTube, Spotify, and other music services|Added blocking for AI Overviews, AI features on Yahoo|Added AI Summaries blocking on IMDB|Bugfixes, UI & performance improvements"
+   },
+   "whatsNewTitle": {
+      "message": "Updated - What's New"
+   },
+   "whitelistedSites": {
+      "message": "Whitelisted sites"
+   },
+   "whitelistedSitesDesc": {
+      "message": "Sites where blocking is disabled"
+   },
+   "yearly": {
+      "message": "Yearly"
+   },
+   "yearlyPlan": {
+      "message": "Yearly"
+   },
+   "youSaved": {
+      "message": "You saved"
+   },
+   "yourCurrentLevel": {
+      "message": "Your Current Level"
+   },
+   "yourLevelBadge": {
+      "message": "Your Level Badge"
+   },
+   "youtubeBlocklistAddButton": {
+      "message": "Add Channel"
+   },
+   "youtubeBlocklistCancelButton": {
+      "message": "Cancel"
+   },
+   "youtubeBlocklistCounter": {
+      "message": "Channels: {count}/200"
+   },
+   "youtubeBlocklistDescription": {
+      "message": "Add up to 200 YouTube channel names to block. Channel names are matched exactly (case-insensitive). Max 50 characters per name. Videos from channels will be blocked on feeds."
+   },
+   "youtubeBlocklistEmptySubtitle": {
+      "message": "Enter a channel name to block it from YouTube."
+   },
+   "youtubeBlocklistEmptyTitle": {
+      "message": "No channels blocked yet."
+   },
+   "youtubeBlocklistInputPlaceholder": {
+      "message": "Enter channel name..."
+   },
+   "youtubeBlocklistRemoveButton": {
+      "message": "Remove"
+   },
+   "youtubeBlocklistSaveButton": {
+      "message": "Save Channels"
+   },
+   "youtubeBlocklistSectionTitle": {
+      "message": "Blocked Channels"
+   },
+   "youtubeBlocklistTabLabel": {
+      "message": "YouTube Blocklist"
+   }
+}

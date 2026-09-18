@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-i18n="settingsPageTitle">Settings - Ville de Rimouski / Pas de Mode IA Google</title>
+  <link rel="stylesheet" href="shared-social.css" />
+  <link rel="stylesheet" href="styles/dark-mode.css" />
+  <style>
+    #smart-blocking-info,
+    .aics-footer-divider,
+    .aics-footer-social-row,
+    .aics-footer-section,
+    .pin-guide-modal,
+    .pro-col,
+    #statsButtonContainer,
+    #statsModal,
+    #stickyCta {
+      display: none !important;
+    }
+
+    /* Hide i18n elements with potential HTML content until processed */
+    [data-i18n] {
+      opacity: 0;
+      transition: opacity 0.1s ease-in;
+    }
+    [data-i18n].i18n-processed {
+      opacity: 1;
+    }
+    
+    body {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-height: 100vh !important;
+      background: #f7f8fa;
+      margin: 0;
+      padding: 0 0 100px 0;
+      color: #222;
+      font-size: 1.0rem;
+      font-family: 'Roboto', Arial, sans-serif;
+    }
+    .container {
+      margin-left: auto !important;
+      margin-right: auto !important;
+      max-width: 960px;
+      width: 100%;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 32px 24px 24px 24px;
+    }
+    .settings-flex {
+      display: flex;
+      flex-direction: row;
+      gap: 32px;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+    }
+    @media (max-width: 800px) {
+      .settings-flex {
+        flex-direction: column;
+        gap: 0;
+      }
+    }
+    .settings-col {
+      flex: 1 1 0;
+      min-width: 0;
+      max-width: 420px;
+    }
+    .pro-col {
+      background: #fffbe7;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(255,193,7,0.07);
+      padding: 24px 14px 18px 8px;
+      margin-bottom: 24px;
+      min-width: 0;
+    }
+    .main-title {
+      font-size: 2.09rem;
+      font-weight: 900;
+      text-align: center;
+      margin-bottom: 10px;
+      color: #222;
+    }
+    .desc {
+      text-align: center;
+      color: #444;
+      font-size: 1.13em;
+      margin-bottom: 32px;
+    }
+    .settings-group {
+      margin-bottom: 20px;
+    }
+    .section-title, .features-title {
+      font-size: 1.14em;
+      font-weight: 700;
+      color: #2196f3;
+      margin-bottom: 12px;
+      margin-top: 6px;
+    }
+    .pro-col .section-title {
+      color: #bfa32b;
+      margin-top: 0;
+    }
+    
+    /* MD3 Toggle Row Styles */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f7f8fa;
+      border-radius: 12px;
+      padding: 10px 14px 10px 16px;
+      margin-bottom: 6px;
+      border: 1px solid transparent;
+      transition: all 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .toggle-row::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #2196f3;
+      opacity: 0;
+      transition: opacity 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);
+      pointer-events: none;
+    }
+    
+    .toggle-row:hover::before {
+      opacity: 0.04;
+    }
+    
+    .toggle-row:focus-within {
+      border-color: #2196f3;
+      box-shadow: 0 0 0 1px #2196f3;
+    }
+    
+    .toggle-label {
+      font-size: 0.95em;
+      color: #222;
+      font-weight: 500;
+      line-height: 1.3;
+      letter-spacing: 0.01em;
+    }
+    .toggle-desc {
+      font-size: 1.007em;
+      color: #888;
+      margin-top: 2px;
+    }
+    
+    /* MD3 Toggle Switch Styles */
+    .aics-toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 52px;
+      height: 32px;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+    
+    .aics-toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      position: absolute;
+    }
+    
+    .aics-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #e7e0ec;
+      border: 2px solid #79747e;
+      border-radius: 16px;
+      transition: all 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);
+      overflow: hidden;
+    }
+    
+    .aics-slider::before {
+      position: absolute;
+      content: "";
+      height: 24px;
+      width: 24px;
+      left: 2px;
+      top: 2px;
+      background: #79747e;
+      border-radius: 50%;
+      transition: all 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
+    
+    /* MD3 Toggle Switch - Checked State */
+    .aics-toggle-switch input:checked + .aics-slider {
+      background: #2196f3;
+      border-color: #2196f3;
+    }
+    
+    .aics-toggle-switch input:checked + .aics-slider::before {
+      transform: translateX(20px);
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.16), 0 2px 4px rgba(0,0,0,0.23);
+    }
+    
+    /* MD3 Toggle Switch - Hover States */
+    .aics-slider:hover {
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .aics-toggle-switch input:checked + .aics-slider:hover {
+      background: #1976d2;
+      border-color: #1976d2;
+    }
+    
+    /* MD3 Toggle Switch - Focus States */
+    .aics-toggle-switch input:focus + .aics-slider {
+      outline: 2px solid #2196f3;
+      outline-offset: 2px;
+    }
+    
+    /* MD3 Toggle Switch - Disabled State */
+    .aics-toggle-switch input:disabled + .aics-slider {
+      background: #f5f5f5;
+      border-color: #e0e0e0;
+      cursor: not-allowed;
+      opacity: 0.38;
+    }
+    
+    .aics-toggle-switch input:disabled + .aics-slider::before {
+      background: #bdbdbd;
+      box-shadow: none;
+    }
+    
+    .aics-toggle-switch input:disabled + .aics-slider:hover {
+      box-shadow: none;
+    }
+    
+    /* Pro Feature Styles */
+    .pro-feature-row {
+      display: flex;
+      align-items: stretch;
+      margin-top: 14px;
+      margin-bottom: 0;
+      transition: background 0.15s;
+      min-height: 48px;
+    }
+    .pro-feature-row--clickable, .pro-feature-row--clickable * {
+      cursor: pointer !important;
+    }
+    .pro-feature-row--clickable:hover, .pro-feature-row--clickable:focus {
+      background: #fffbe7;
+      transition: background 0.15s;
+    }
+    .pro-divider {
+      width: 3px;
+      border-radius: 3px;
+      background: #ffe9b3;
+      min-height: 38px;
+      margin-right: 4px;
+      margin-top: 2px;
+      align-self: stretch;
+    }
+    .pro-feature-content {
+      display: flex;
+      align-items: center;
+      flex: 1 1 auto;
+      min-width: 0;
+      gap: 0.2em;
+    }
+    .pro-locked {
+      display: inline-flex;
+      align-items: center;
+      vertical-align: middle;
+      margin-right: 2px;
+      filter: drop-shadow(0 1px 2px #ffe082);
+      flex-shrink: 0;
+    }
+    .gold-lock {
+      display: inline-block;
+      vertical-align: middle;
+      width: 20px;
+      height: 20px;
+    }
+    .pro-feature-title {
+      font-weight: 700;
+      color: #222;
+      display: block;
+      margin-bottom: 1px;
+      font-size: 1.012em;
+      white-space: normal;
+    }
+    .pro-feature-title.small {
+      font-size: 0.90em;
+      letter-spacing: -0.02em;
+    }
+    .pro-feature-desc {
+      color: #888;
+      font-size: 0.965em;
+      display: block;
+      white-space: normal;
+    }
+    .pro-feature-desc.small {
+      font-size: 0.88em;
+    }
+    .pro-label {
+      display: inline-block;
+      background: #ffc107;
+      color: #fff;
+      font-size: 0.8em;
+      font-weight: 700;
+      border-radius: 6px;
+      padding: 1px 7px;
+      margin-left: 7px;
+      vertical-align: middle;
+      letter-spacing: 0.5px;
+    }
+    .locked {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    
+               /* Button Container Styles */
+      .button-container {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        margin-top: 18px;
+      }
+     
+     /* MD3 Button Styles */
+     .upgrade-btn {
+       background: #ffc107;
+       color: #222;
+       border: none;
+       border-radius: 20px;
+       padding: 12px 24px;
+       font-weight: 700;
+       font-size: 1.045em;
+       flex: 1;
+       cursor: pointer;
+       transition: all 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);
+       position: relative;
+       overflow: hidden;
+       letter-spacing: 0.1px;
+       text-transform: none;
+       box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+     }
+     
+     .upgrade-btn::before {
+       content: '';
+       position: absolute;
+       top: 0;
+       left: 0;
+       right: 0;
+       bottom: 0;
+       background: #000;
+       opacity: 0;
+       transition: opacity 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);
+     }
+     
+     .upgrade-btn:hover {
+       background: #e6b800;
+       box-shadow: 0 2px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+     }
+     
+     .upgrade-btn:hover::before {
+       opacity: 0.08;
+     }
+     
+     .upgrade-btn:focus {
+       outline: 2px solid #ffc107;
+       outline-offset: 2px;
+     }
+     
+     .upgrade-btn:active {
+       transform: translateY(1px);
+       box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+     }
+     
+     .upgrade-btn:active::before {
+       opacity: 0.12;
+     }
+     
+     /* Manage Subscription Button Styles (Plain White) */
+     .upgrade-btn.manage-subscription {
+       background: #fff;
+       color: #2196f3;
+       border: 2px solid #2196f3;
+       box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.16);
+     }
+     
+     .upgrade-btn.manage-subscription::before {
+       background: #2196f3;
+     }
+     
+     .upgrade-btn.manage-subscription:hover {
+       background: #f8f9fa;
+       border-color: #1976d2;
+       color: #1976d2;
+       box-shadow: 0 2px 6px rgba(0,0,0,0.12), 0 3px 6px rgba(0,0,0,0.18);
+     }
+     
+     .upgrade-btn.manage-subscription:hover::before {
+       opacity: 0.04;
+     }
+     
+     .upgrade-btn.manage-subscription:focus {
+       outline: 2px solid #2196f3;
+       outline-offset: 2px;
+     }
+     
+     .upgrade-btn.manage-subscription:active {
+       background: #e3f2fd;
+       transform: translateY(1px);
+       box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+     }
+     
+     .upgrade-btn.manage-subscription:active::before {
+       opacity: 0.08;
+     }
+     
+     /* Stats Button Styles */
+     .upgrade-btn.stats-btn {
+       background: #2196f3;
+       color: #fff;
+       border: 2px solid #2196f3;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       gap: 8px;
+     }
+     
+     .upgrade-btn.stats-btn::before {
+       background: #fff;
+     }
+     
+     .upgrade-btn.stats-btn:hover {
+       background: #1976d2;
+       border-color: #1976d2;
+       box-shadow: 0 2px 6px rgba(33, 150, 243, 0.16), 0 3px 6px rgba(33, 150, 243, 0.23);
+     }
+     
+     .upgrade-btn.stats-btn:hover::before {
+       opacity: 0.08;
+     }
+     
+     .upgrade-btn.stats-btn:focus {
+       outline: 2px solid #2196f3;
+       outline-offset: 2px;
+     }
+     
+     .upgrade-btn.stats-btn:active {
+       background: #1565c0;
+       transform: translateY(1px);
+       box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+     }
+     
+     .upgrade-btn.stats-btn:active::before {
+       opacity: 0.12;
+     }
+     
+     /* Stats Modal Styles - Material Design 3 */
+     .stats-modal {
+       position: fixed;
+       top: 0;
+       left: 0;
+       right: 0;
+       bottom: 0;
+       z-index: 10000;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       padding: 20px;
+       box-sizing: border-box;
+     }
+     
+     .stats-modal-overlay {
+       position: absolute;
+       top: 0;
+       left: 0;
+       right: 0;
+       bottom: 0;
+       background: rgba(0, 0, 0, 0.5);
+       backdrop-filter: blur(2px);
+       animation: fadeIn 0.2s ease-out;
+     }
+     
+     .stats-modal-content {
+       position: relative;
+       background: #fff;
+       border-radius: 24px;
+       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 4px 16px rgba(0, 0, 0, 0.08);
+       max-width: 900px;
+       width: 100%;
+       max-height: 90vh;
+       overflow: hidden;
+       animation: slideInUp 0.3s cubic-bezier(0.2, 0.0, 0, 1.0);
+     }
+     
+     .stats-modal-header {
+       display: flex;
+       align-items: center;
+       justify-content: space-between;
+       padding: 24px 32px 16px 32px;
+       border-bottom: 1px solid #e0e0e0;
+     }
+     
+     .stats-modal-title {
+       font-size: 1.5em;
+       font-weight: 600;
+       margin: 0;
+       color: #1a1a1a;
+     }
+     
+     .stats-modal-close {
+       background: transparent;
+       border: none;
+       padding: 8px;
+       border-radius: 12px;
+       cursor: pointer;
+       color: #666;
+       transition: all 0.2s ease;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+     }
+     
+     .stats-modal-close:hover {
+       background: #f5f5f5;
+       color: #333;
+     }
+     
+     .stats-modal-body {
+       padding: 24px 32px 32px 32px;
+       overflow-y: auto;
+       max-height: calc(90vh - 120px);
+     }
+     
+     /* Summary Cards Grid */
+     .stats-summary-grid {
+       display: grid;
+       grid-template-columns: repeat(5, 1fr);
+       gap: 12px;
+       margin-bottom: 32px;
+     }
+     
+     .stats-card {
+       background: #f8f9fa;
+       border-radius: 12px;
+       padding: 12px 14px;
+       display: flex;
+       align-items: center;
+       gap: 10px;
+       transition: transform 0.2s ease, box-shadow 0.2s ease;
+       border: 1px solid #e9ecef;
+     }
+     
+     .stats-card:hover {
+       transform: translateY(-2px);
+       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+     }
+     
+     .stats-card-icon {
+       font-size: 1.5em;
+       width: 36px;
+       height: 36px;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       background: #fff;
+       border-radius: 10px;
+       flex-shrink: 0;
+     }
+     
+     .stats-card-icon svg {
+       width: 20px;
+       height: 20px;
+     }
+     
+     .stats-card-content {
+       flex: 1;
+       min-width: 0;
+     }
+     
+     .stats-card-value {
+       font-size: 1.3em;
+       font-weight: 700;
+       color: #e53935;
+       line-height: 1.2;
+     }
+     
+     .stats-card-label {
+       font-size: 0.78em;
+       color: #666;
+       font-weight: 500;
+       margin-top: 2px;
+     }
+     
+     .stats-card-value-with-info {
+       display: flex;
+       align-items: center;
+       gap: 6px;
+     }
+     
+     .stats-card-info-icon {
+       display: inline-flex;
+       align-items: center;
+       justify-content: center;
+       cursor: help;
+       flex-shrink: 0;
+       color: #666;
+     }
+     
+     .stats-card-info-icon svg {
+       width: 16px;
+       height: 16px;
+       opacity: 0.6;
+       transition: opacity 0.2s;
+     }
+     
+     .stats-card-info-icon:hover svg {
+       opacity: 0.85;
+     }
+     
+     .stats-value-hours-group {
+       display: inline-flex;
+       align-items: baseline;
+       gap: 0;
+     }
+     .stats-hours-suffix {
+       color: #e53935;
+       font-weight: 700;
+       margin: 0;
+       padding: 0;
+     }
+     
+     body.theme-dark .stats-card-info-icon svg {
+       stroke: #aaa;
+     }
+     
+     /* Stats Sections */
+     .stats-sections {
+       display: grid;
+       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+       gap: 24px;
+     }
+     
+     .stats-section {
+       background: #f8f9fa;
+       border-radius: 16px;
+       padding: 20px;
+       border: 1px solid #e9ecef;
+     }
+     
+     .stats-section-title {
+       font-size: 1.1em;
+       font-weight: 600;
+       margin: 0 0 16px 0;
+       color: #1a1a1a;
+     }
+     
+     .stats-list-item {
+       display: flex;
+       align-items: center;
+       justify-content: space-between;
+       padding: 12px 16px;
+       background: #fff;
+       border-radius: 12px;
+       margin-bottom: 8px;
+       border: 1px solid #e9ecef;
+       transition: background-color 0.2s ease;
+     }
+     
+     .stats-list-item:hover {
+       background: #f0f7ff;
+     }
+     
+     .stats-list-item-label {
+       font-weight: 500;
+       color: #333;
+       display: flex;
+       align-items: center;
+       gap: 8px;
+     }
+     
+     .stats-list-item-value {
+       font-weight: 600;
+       color: #e53935;
+     }
+     
+     .stats-activity {
+       max-height: 300px;
+       overflow-y: auto;
+     }
+     
+     .stats-activity-item {
+       display: flex;
+       align-items: center;
+       gap: 12px;
+       padding: 12px 16px;
+       background: #fff;
+       border-radius: 12px;
+       margin-bottom: 8px;
+       border: 1px solid #e9ecef;
+     }
+     
+     .stats-activity-icon {
+       width: 32px;
+       height: 32px;
+       background: #f0f0f0;
+       border-radius: 8px;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       flex-shrink: 0;
+     }
+     
+     .stats-activity-content {
+       flex: 1;
+       min-width: 0;
+     }
+     
+     .stats-activity-text {
+       font-size: 0.9em;
+       color: #333;
+       margin-bottom: 2px;
+     }
+     
+     .stats-activity-text .stats-number {
+       font-weight: 600;
+       color: #e53935;
+     }
+     
+     .stats-activity-time {
+       font-size: 0.8em;
+       color: #666;
+     }
+     
+     /* Animations */
+     @keyframes fadeIn {
+       from { opacity: 0; }
+       to { opacity: 1; }
+     }
+     
+     @keyframes slideInUp {
+       from {
+         opacity: 0;
+         transform: translateY(40px) scale(0.95);
+       }
+       to {
+         opacity: 1;
+         transform: translateY(0) scale(1);
+       }
+     }
+     
+     /* Responsive Design */
+     @media (max-width: 1100px) {
+       .stats-summary-grid {
+         grid-template-columns: repeat(3, 1fr);
+         gap: 12px;
+       }
+     }
+     @media (max-width: 768px) {
+       .stats-summary-grid {
+         grid-template-columns: repeat(2, 1fr);
+         gap: 12px;
+       }
+     }
+     
+     @media (max-width: 600px) {
+       .stats-modal {
+         padding: 10px;
+       }
+       
+       .stats-modal-content {
+         border-radius: 20px;
+         max-height: 95vh;
+       }
+       
+       .stats-modal-header,
+       .stats-modal-body {
+         padding-left: 20px;
+         padding-right: 20px;
+       }
+       
+       /* stats-summary-grid inherits 2x2 from tablet breakpoint */
+       
+       .stats-sections {
+         grid-template-columns: 1fr;
+         gap: 20px;
+       }
+       
+      .stats-card {
+        padding: 10px 12px;
+        gap: 8px;
+      }
+      
+      .stats-card-icon {
+        width: 30px;
+        height: 30px;
+      }
+      
+      .stats-card-icon svg {
+        width: 16px;
+        height: 16px;
+      }
+      
+      .stats-card-value {
+        font-size: 1.1em;
+      }
+      
+      .stats-card-label {
+        font-size: 0.75em;
+      }
+    }
+    .aics-toggle-switch {
+      margin-left: 12px;
+      flex-shrink: 0;
+    }
+    .pin-guide-modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+    .pin-guide-modal[hidden] {
+      display: none;
+    }
+    .pin-guide-content {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.18);
+      padding: 32px 28px 22px 28px;
+      min-width: 260px;
+      max-width: 340px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .pin-guide-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .puzzle-icon, .pin-icon {
+      font-size: 2.2em;
+      margin: 0 8px;
+    }
+    .puzzle-icon-inline, .pin-icon-inline {
+      font-size: 1.1em;
+      vertical-align: middle;
+    }
+    .extension-icon-inline {
+      vertical-align: baseline;
+      margin: 0 2px;
+    }
+    .pin-guide-title {
+      font-size: 1.235rem;
+      font-weight: 700;
+      margin: 0 0 10px 0;
+      color: #222;
+      text-align: center;
+    }
+    .pin-guide-text {
+      color: #444;
+      font-size: 1.02em;
+      margin-bottom: 18px;
+      text-align: center;
+    }
+    .pin-guide-text code {
+      font-size: 0.95em;
+      background: #f0f0f0;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    body.theme-dark .pin-guide-text code {
+      background: #3d3d3d;
+    }
+    /* MD3 Close Button Styles */
+    .close-pin-guide-btn {
+      background: #2196f3;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 10px 24px;
+      font-weight: 500;
+      cursor: pointer;
+      font-size: 1.0em;
+      transition: all 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.1px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
+    
+    .close-pin-guide-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      opacity: 0;
+      transition: opacity 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);
+    }
+    
+    .close-pin-guide-btn:hover {
+      background: #1976d2;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+    
+    .close-pin-guide-btn:hover::before {
+      opacity: 0.08;
+    }
+    
+    .close-pin-guide-btn:focus {
+      outline: 2px solid #2196f3;
+      outline-offset: 2px;
+    }
+    
+    .close-pin-guide-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    }
+    
+    .close-pin-guide-btn:active::before {
+      opacity: 0.12;
+    }
+    
+    /* Dark mode styles */
+    body.theme-dark {
+      background: #181a1b !important;
+      color: #f1f1f1 !important;
+    }
+    
+    body.theme-dark .container {
+      background: #23272a !important;
+      color: #f1f1f1 !important;
+    }
+    
+    body.theme-dark .pro-col {
+      background: #2d2d2d !important;
+      border: 1px solid #3d3d3d;
+    }
+    
+    body.theme-dark .main-title,
+    body.theme-dark .section-title,
+    body.theme-dark .features-title,
+    body.theme-dark .toggle-label,
+    body.theme-dark .pro-feature-title {
+      color: #f1f1f1 !important;
+    }
+    
+    body.theme-dark .pro-col .section-title {
+      color: #ffc107 !important;
+    }
+    
+    body.theme-dark .toggle-row {
+      background: #2d2d2d !important;
+      border: 1px solid #3d3d3d;
+    }
+    
+    body.theme-dark .toggle-desc,
+    body.theme-dark .pro-feature-desc {
+      color: #aaa !important;
+    }
+    
+    /* MD3 Dark Mode Toggle Styles */
+    body.theme-dark .aics-slider {
+      background: #49454f !important;
+      border-color: #938f99 !important;
+    }
+    
+    body.theme-dark .aics-slider::before {
+      background: #938f99 !important;
+    }
+    
+    body.theme-dark .aics-toggle-switch input:checked + .aics-slider {
+      background: #2196f3 !important;
+      border-color: #2196f3 !important;
+    }
+    
+    body.theme-dark .aics-toggle-switch input:checked + .aics-slider::before {
+      background: #fff !important;
+    }
+    
+    body.theme-dark .aics-toggle-switch input:checked + .aics-slider:hover {
+      background: #1976d2 !important;
+      border-color: #1976d2 !important;
+    }
+    
+    body.theme-dark .aics-toggle-switch input:disabled + .aics-slider {
+      background: #2d2d2d !important;
+      border-color: #444 !important;
+    }
+    
+    body.theme-dark .aics-toggle-switch input:disabled + .aics-slider::before {
+      background: #666 !important;
+    }
+    
+    body.theme-dark .upgrade-btn {
+      background: #ffc107 !important;
+      color: #222 !important;
+    }
+    
+    body.theme-dark .upgrade-btn:hover {
+      background: #e6b800 !important;
+    }
+    
+    /* Dark mode styles for manage subscription button */
+    body.theme-dark .upgrade-btn.manage-subscription {
+      background: #2d2d2d !important;
+      color: #64b5f6 !important;
+      border: 2px solid #64b5f6 !important;
+    }
+    
+    body.theme-dark .upgrade-btn.manage-subscription:hover {
+      background: #3d3d3d !important;
+      border-color: #42a5f5 !important;
+      color: #42a5f5 !important;
+    }
+    
+    body.theme-dark .upgrade-btn.manage-subscription:active {
+      background: #1e3a5f !important;
+    }
+    
+    /* Dark mode styles for Stats Button */
+    body.theme-dark .upgrade-btn.stats-btn {
+      background: #2196f3 !important;
+      color: #fff !important;
+      border-color: #2196f3 !important;
+    }
+    
+    body.theme-dark .upgrade-btn.stats-btn:hover {
+      background: #1976d2 !important;
+      border-color: #1976d2 !important;
+    }
+    
+    body.theme-dark .upgrade-btn.stats-btn:active {
+      background: #1565c0 !important;
+    }
+    
+    /* Dark mode styles for Stats Modal */
+    body.theme-dark .stats-modal-overlay {
+      background: rgba(0, 0, 0, 0.7) !important;
+    }
+    
+    body.theme-dark .stats-modal-content {
+      background: #23272a !important;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2) !important;
+    }
+    
+    body.theme-dark .stats-modal-header {
+      border-bottom-color: #3d3d3d !important;
+    }
+    
+    body.theme-dark .stats-modal-title {
+      color: #f1f1f1 !important;
+    }
+    
+    body.theme-dark .stats-modal-close {
+      color: #ccc !important;
+    }
+    
+    body.theme-dark .stats-modal-close:hover {
+      background: #2d2d2d !important;
+      color: #f1f1f1 !important;
+    }
+    
+    body.theme-dark .stats-card {
+      background: #2d2d2d !important;
+      border-color: #3d3d3d !important;
+    }
+    
+    body.theme-dark .stats-card-icon {
+      background: #3d3d3d !important;
+    }
+    
+    body.theme-dark .stats-card-value {
+      color: #e53935 !important;
+    }
+    
+    body.theme-dark .stats-card-label {
+      color: #aaa !important;
+    }
+    
+    body.theme-dark .stats-section {
+      background: #2d2d2d !important;
+      border-color: #3d3d3d !important;
+    }
+    
+    body.theme-dark .stats-section-title {
+      color: #f1f1f1 !important;
+    }
+    
+    body.theme-dark .stats-list-item {
+      background: #23272a !important;
+      border-color: #3d3d3d !important;
+    }
+    
+    body.theme-dark .stats-list-item:hover {
+      background: #2d2d2d !important;
+    }
+    
+    body.theme-dark .stats-list-item-label {
+      color: #f1f1f1 !important;
+    }
+    
+    body.theme-dark .stats-list-item-value {
+      color: #e53935 !important;
+    }
+    
+    body.theme-dark .stats-activity-item {
+      background: #23272a !important;
+      border-color: #3d3d3d !important;
+    }
+    
+    body.theme-dark .stats-activity-icon {
+      background: #3d3d3d !important;
+    }
+    
+    body.theme-dark .stats-activity-text {
+      color: #f1f1f1 !important;
+    }
+    
+    body.theme-dark .stats-activity-text .stats-number {
+      color: #e53935 !important;
+    }
+    
+    body.theme-dark .stats-activity-time {
+      color: #aaa !important;
+    }
+    
+    /* Refresh Button Styles */
+    .refresh-btn {
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 18px;
+      padding: 6px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.16);
+    }
+    
+    .refresh-btn:hover {
+      background: #e8e8e8;
+      border-color: #ccc;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    
+    .refresh-btn:active {
+      background: #ddd;
+      transform: translateY(0);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    
+    .refresh-btn svg {
+      transition: transform 0.3s ease;
+    }
+    
+    .refresh-btn:hover svg {
+      transform: rotate(180deg);
+    }
+    
+    /* Dark mode styles for refresh button */
+    body.theme-dark .refresh-btn {
+      background: #2d2d2d;
+      border: 1px solid #555;
+    }
+    
+    body.theme-dark .refresh-btn:hover {
+      background: #3d3d3d;
+      border-color: #666;
+    }
+    
+    body.theme-dark .refresh-btn:active {
+      background: #1d1d1d;
+    }
+    
+    /* Spin animation for refresh button */
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    body.theme-dark .pin-guide-content {
+      background: #23272a !important;
+      color: #f1f1f1 !important;
+    }
+    
+    body.theme-dark .pin-guide-title {
+      color: #f1f1f1 !important;
+    }
+    
+    body.theme-dark .pin-guide-text {
+      color: #ccc !important;
+    }
+    
+    /* Dark mode styles for header/settings title */
+    body.theme-dark .main-title span {
+      color: #f1f1f1 !important;
+    }
+    
+    body.theme-dark .desc {
+      color: #ccc !important;
+    }
+    
+    /* Sticky CTA Button Styles */
+    .sticky-cta-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: #fff;
+      border-top: 1px solid #e0e0e0;
+      box-shadow: 0 -4px 24px rgba(0,0,0,0.12);
+      padding: 16px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .sticky-cta-inner {
+      max-width: 960px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .sticky-cta-button {
+      background: #ffc107;
+      color: #222;
+      border: none;
+      border-radius: 20px;
+      padding: 12px 24px;
+      font-weight: 700;
+      font-size: 1.045em;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.1px;
+      text-transform: none;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      min-width: 200px;
+    }
+    
+    .sticky-cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #000;
+      opacity: 0;
+      transition: opacity 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);
+    }
+    
+    .sticky-cta-button:hover {
+      background: #e6b800;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+    
+    .sticky-cta-button:hover::before {
+      opacity: 0.08;
+    }
+    
+    .sticky-cta-button:focus {
+      outline: 2px solid #ffc107;
+      outline-offset: 2px;
+    }
+    
+    .sticky-cta-button:active {
+      transform: translateY(1px);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    }
+    
+    .sticky-cta-button:active::before {
+      opacity: 0.12;
+    }
+    
+    .sticky-cta-microcopy {
+      font-size: 0.9em;
+      color: #666;
+      text-align: center;
+      font-weight: 500;
+    }
+    
+    /* Dark mode styles for sticky CTA */
+    body.theme-dark .sticky-cta-container {
+      background: #23272a !important;
+      border-top-color: #3d3d3d !important;
+    }
+    
+    body.theme-dark .sticky-cta-button {
+      background: #ffc107 !important;
+      color: #222 !important;
+    }
+    
+    body.theme-dark .sticky-cta-button:hover {
+      background: #e6b800 !important;
+    }
+    
+    body.theme-dark .sticky-cta-microcopy {
+      color: #aaa !important;
+    }
+    
+    /* Mid-page PRO CTA Block Styles */
+    .mid-pro-cta-block {
+      background: #fffbe7;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(255,193,7,0.07);
+      padding: 20px 12px;
+      margin-top: 14px;
+      margin-bottom: 14px;
+      text-align: center;
+    }
+    
+    .mid-pro-cta-text {
+      font-size: 0.88em;
+      font-weight: 600;
+      color: #222;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    
+    .trial-text-sub {
+      color: #888;
+      font-size: 0.95em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    
+    .mid-pro-cta-button {
+      background: #ffc107;
+      color: #222;
+      border: none;
+      border-radius: 20px;
+      padding: 12px 24px;
+      font-weight: 700;
+      font-size: 1.045em;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.1px;
+      text-transform: none;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      width: 100%;
+    }
+    
+    .mid-pro-cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #000;
+      opacity: 0;
+      transition: opacity 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);
+    }
+    
+    .mid-pro-cta-button:hover {
+      background: #e6b800;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+    
+    .mid-pro-cta-button:hover::before {
+      opacity: 0.08;
+    }
+    
+    .mid-pro-cta-button:focus {
+      outline: 2px solid #ffc107;
+      outline-offset: 2px;
+    }
+    
+    .mid-pro-cta-button:active {
+      transform: translateY(1px);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    }
+    
+    .mid-pro-cta-button:active::before {
+      opacity: 0.12;
+    }
+    
+    /* Dark mode styles for mid-page PRO CTA */
+    body.theme-dark .mid-pro-cta-block {
+      background: #2d2d2d !important;
+      border: 1px solid #3d3d3d;
+    }
+    
+    body.theme-dark .mid-pro-cta-text {
+      color: #f1f1f1 !important;
+    }
+    
+    body.theme-dark .trial-text-sub {
+      color: #aaa !important;
+    }
+    
+    body.theme-dark .mid-pro-cta-button {
+      background: #ffc107 !important;
+      color: #222 !important;
+    }
+    
+    body.theme-dark .mid-pro-cta-button:hover {
+      background: #e6b800 !important;
+    }
+    
+    /* Bottom CTA Text Above Button */
+    .bottom-cta-text {
+      font-size: 0.88em;
+      font-weight: 600;
+      color: #222;
+      margin-top: 18px;
+      margin-bottom: 12px;
+      line-height: 1.2;
+      text-align: left;
+    }
+    
+    body.theme-dark .bottom-cta-text {
+      color: #f1f1f1 !important;
+    }
+    
+    /* Custom Keywords Button Styles - Material Design 3 */
+    .edit-keywords-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #2196f3;
+      color: #fff;
+      border: none;
+      border-radius: 18px;
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.2, 0.0, 0, 1.0);
+      box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+      position: relative;
+      overflow: hidden;
+      letter-spacing: 0.1px;
+      min-height: 32px;
+      white-space: nowrap;
+    }
+
+    .edit-keywords-btn svg {
+      flex-shrink: 0;
+      fill: rgba(255, 255, 255, 0.85);
+    }
+
+    .edit-keywords-btn:hover {
+      background: #1976d2;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(33, 150, 243, 0.4);
+    }
+
+    .edit-keywords-btn:active {
+      transform: translateY(0px);
+      box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+    }
+
+    .edit-keywords-btn:focus {
+      outline: 2px solid #2196f3;
+      outline-offset: 2px;
+    }
+
+    /* Dark mode styles for edit keywords button */
+    body.theme-dark .edit-keywords-btn {
+      background: #2196f3;
+      box-shadow: 0 2px 8px rgba(33, 150, 243, 0.2);
+    }
+
+    body.theme-dark .edit-keywords-btn:hover {
+      background: #1976d2;
+      box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+    }
+
+    /* Dark mode styles for sharing/referral section */
+    body.theme-dark #aics-referral-block {
+      background: #2d2d2d !important;
+      border: 1px solid #3d3d3d !important;
+    }
+    
+    body.theme-dark #aics-referral-block > div:first-child {
+      color: #f1f1f1 !important;
+    }
+    
+    body.theme-dark #aics-referral-block > div:first-child a {
+      color: #64b5f6 !important;
+    }
+    
+    body.theme-dark #aics-referral-block > div:first-child a:hover {
+      color: #42a5f5 !important;
+    }
+    
+    body.theme-dark #aics-referral-block span {
+      color: #aaa !important;
+    }
+    
+    body.theme-dark #aics-referral-url {
+      background: #23272a !important;
+      border: 1px solid #3d3d3d !important;
+      color: #f1f1f1 !important;
+    }
+    
+    body.theme-dark #aics-referral-copy {
+      background: #2196f3 !important;
+      color: #fff !important;
+    }
+    
+    body.theme-dark #aics-referral-copy:hover {
+      background: #1769aa !important;
+    }
+    
+    /* Dark mode styles for footer section */
+    body.theme-dark .aics-footer-divider {
+      background: #3d3d3d !important;
+    }
+    
+    body.theme-dark .aics-footer-msg {
+      color: #f1f1f1 !important;
+    }
+    
+    /* Dark mode styles for social icons */
+    body.theme-dark .aics-social-icon {
+      background: #2d2d2d !important;
+      box-shadow: 0 1px 4px rgba(255,255,255,0.07) !important;
+    }
+    
+    body.theme-dark .aics-social-icon:hover,
+    body.theme-dark .aics-social-icon:focus {
+      box-shadow: 0 2px 8px rgba(255,255,255,0.15) !important;
+    }
+    
+    body.theme-dark .aics-share-icon {
+      background: #2d2d2d !important;
+      box-shadow: 0 1px 3px rgba(255,255,255,0.1) !important;
+    }
+    
+    body.theme-dark .aics-share-icon:hover,
+    body.theme-dark .aics-share-icon:focus {
+      box-shadow: 0 2px 6px rgba(255,255,255,0.15) !important;
+    }
+    
+    /* PRO text styling for settings page */
+    .pro-text {
+      display: inline-block;
+      background: #ffc107;
+      color: #222;
+      font-size: 0.6em;
+      font-weight: 700;
+      border-radius: 4px;
+      padding: 1px 5px;
+      margin-right: 4px;
+      vertical-align: middle;
+      letter-spacing: 0.3px;
+    }
+    
+    /* Hover effect for links to replace inline event handlers */
+    .aics-hover-link:hover {
+      color: #1769aa !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main" data-i18n-aria-label="settingsPageTitle" aria-label="Settings - Ville de Rimouski / Pas de Mode IA Google">
+    <div class="main-title" style="display: flex; align-items: flex-end; justify-content: center; gap: 10px;" role="banner">
+      <img src="../icons/icon128.png" data-i18n-alt="extensionName" alt="Ville de Rimouski / Pas de Mode IA Google" style="width:36px;height:36px;object-fit:contain;display:inline-block;margin:0;padding:0;vertical-align:bottom;">
+      <span style="font-size:2.09rem;font-weight:900;color:#222;line-height:1;" data-i18n="settingsTitle" role="heading" aria-level="1">Settings</span>
+    </div>
+    <div class="desc" role="region" aria-label="Settings description">Ville de Rimouski, pas de Mode IA dans Google</div>
+    
+
+    
+    <div class="settings-flex">
+      <div class="settings-col pro-col" role="region" data-i18n-aria-label="proFeatures" aria-label="Pro Features" style="display:none;">
+        <div class="section-title" data-i18n="proFeatures" role="heading" aria-level="2">Pro Features</div>
+        <div class="pro-feature-row" id="pro-youtube-voice-row" role="group" data-i18n-aria-label="blockYouTubeAIVoiceVideos" aria-label="Block AI-voiced YouTube, TikTok, Insta videos">
+          <span class="pro-divider"></span>
+          <div class="pro-feature-content">
+            <span class="pro-locked" data-i18n-aria-label="proFeature" data-i18n-title="proFeature" aria-label="Pro feature" title="Pro feature">
+              <svg class="gold-lock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <rect x="4" y="9" width="12" height="7" rx="2" fill="#FFC107" stroke="#BFA32B" stroke-width="1.2"/>
+                <path d="M7 9V7a3 3 0 1 1 6 0v2" stroke="#BFA32B" stroke-width="1.2" fill="none"/>
+                <circle cx="10" cy="13" r="1.2" fill="#BFA32B"/>
+              </svg>
+            </span>
+            <span style="flex:1; min-width:0;">
+              <span class="pro-feature-title small" data-i18n="blockYouTubeAIVoiceVideos">Block AI-voiced YouTube, TikTok, Insta videos</span>
+              <span class="pro-feature-desc small" data-i18n="blockYouTubeAIVoiceVideosDesc">Hide videos with AI-generated voices on YouTube, TikTok, and Instagram.</span>
+            </span>
+          </div>
+          <label class="aics-toggle-switch">
+            <input type="checkbox" id="blockYouTubeAIVoiceVideos" disabled data-i18n-aria-label="blockYouTubeAIVoiceVideos" aria-label="Block AI-voiced YouTube, TikTok, Insta videos">
+            <span class="aics-slider"></span>
+          </label>
+        </div>
+        <div class="pro-feature-row" id="pro-linkedin-facebook-row" role="group" data-i18n-aria-label="blockLinkedInFacebookAIContent" aria-label="Block AI-gen posts on LinkedIn & Facebook">
+          <span class="pro-divider"></span>
+          <div class="pro-feature-content">
+            <span class="pro-locked" data-i18n-aria-label="proFeature" data-i18n-title="proFeature" aria-label="Pro feature" title="Pro feature">
+              <svg class="gold-lock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <rect x="4" y="9" width="12" height="7" rx="2" fill="#FFC107" stroke="#BFA32B" stroke-width="1.2"/>
+                <path d="M7 9V7a3 3 0 1 1 6 0v2" stroke="#BFA32B" stroke-width="1.2" fill="none"/>
+                <circle cx="10" cy="13" r="1.2" fill="#BFA32B"/>
+              </svg>
+            </span>
+            <span style="flex:1; min-width:0;">
+              <span class="pro-feature-title small" data-i18n="blockLinkedInFacebookAIContent">Block AI-gen posts on LinkedIn &amp; Facebook</span>
+              <span class="pro-feature-desc small" data-i18n="blockLinkedInFacebookAIContentDesc">Hide AI-generated posts and summaries on LinkedIn and Facebook.</span>
+            </span>
+          </div>
+          <label class="aics-toggle-switch">
+            <input type="checkbox" id="blockLinkedinFacebookAIContent" disabled data-i18n-aria-label="blockLinkedInFacebookAIContent" aria-label="Block AI-gen posts on LinkedIn & Facebook">
+            <span class="aics-slider"></span>
+          </label>
+        </div>
+        <div class="pro-feature-row" id="pro-keywords-row" role="group" data-i18n-aria-label="customKeywordFilters" aria-label="YouTube channels & keywords blocking">
+          <span class="pro-divider"></span>
+          <div class="pro-feature-content">
+            <span class="pro-locked" data-i18n-aria-label="proFeature" data-i18n-title="proFeature" aria-label="Pro feature" title="Pro feature">
+              <svg class="gold-lock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <rect x="4" y="9" width="12" height="7" rx="2" fill="#FFC107" stroke="#BFA32B" stroke-width="1.2"/>
+                <path d="M7 9V7a3 3 0 1 1 6 0v2" stroke="#BFA32B" stroke-width="1.2" fill="none"/>
+                <circle cx="10" cy="13" r="1.2" fill="#BFA32B"/>
+              </svg>
+            </span>
+            <span style="flex:1; min-width:0;">
+              <span class="pro-feature-title small" data-i18n="customKeywordFilters">YouTube channels & keywords blocking</span>
+              <span class="pro-feature-desc small" data-i18n="customKeywordFiltersDesc">Block specific YouTube channels and filter unwanted keywords across the web.</span>
+            </span>
+          </div>
+          <label class="aics-toggle-switch">
+            <input type="checkbox" id="enableCustomKeywords" disabled data-i18n-aria-label="customKeywordFilters" aria-label="YouTube channels & keywords blocking">
+            <span class="aics-slider"></span>
+          </label>
+        </div>
+        <div class="custom-keywords-button-container" id="custom-keywords-button-container" style="display:none; margin-top:8px; margin-left:58px;">
+          <button class="edit-keywords-btn" id="edit-keywords-btn" data-i18n-aria-label="editKeywords" aria-label="Filter Content">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M4.25 5.61C6.57 8.59 10 13 10 13v6c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-6s3.43-4.41 5.75-7.39A1 1 0 0 0 18.95 4H5.04a1 1 0 0 0-.79 1.61z"/>
+            </svg>
+            <span data-i18n="editKeywords">Filter Content</span>
+          </button>
+        </div>
+        
+        <!-- Mid-page PRO CTA Block -->
+        <div class="mid-pro-cta-block" id="midProCta" style="display: none;" role="region" aria-label="Upgrade to PRO">
+          <div class="mid-pro-cta-text" data-i18n="midProCtaText">PRO blocks far more AI content across the web</div>
+          <button class="mid-pro-cta-button" id="midProButton" data-i18n="startFreeTrial" data-i18n-aria-label="startFreeTrial" aria-label="Start free trial">Start free trial</button>
+          <div class="trial-text-sub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 3L4 6.5V11.5C4 17 12 21 12 21C12 21 20 17 20 11.5V6.5L12 3Z" stroke="#888" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><path d="M9 12.5L11 14.5L15 10.5" stroke="#43b94a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <span data-i18n="noChargeTodayCancelAnytime" data-i18n-aria-label="noChargeTodayCancelAnytime">No charge today • Cancel anytime in 2 clicks</span>
+          </div>
+        </div>
+        
+        <div class="pro-feature-row" id="pro-gmail-row" role="group" data-i18n-aria-label="blockGmailEmails" aria-label="Block AI emails in Gmail">
+          <span class="pro-divider"></span>
+          <div class="pro-feature-content">
+            <span class="pro-locked" data-i18n-aria-label="proFeature" data-i18n-title="proFeature" aria-label="Pro feature" title="Pro feature">
+              <svg class="gold-lock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <rect x="4" y="9" width="12" height="7" rx="2" fill="#FFC107" stroke="#BFA32B" stroke-width="1.2"/>
+                <path d="M7 9V7a3 3 0 1 1 6 0v2" stroke="#BFA32B" stroke-width="1.2" fill="none"/>
+                <circle cx="10" cy="13" r="1.2" fill="#BFA32B"/>
+              </svg>
+            </span>
+            <span style="flex:1; min-width:0;">
+              <span class="pro-feature-title small" data-i18n="blockGmailEmails">Block AI emails in Gmail</span>
+              <span class="pro-feature-desc small" data-i18n="blockGmailEmailsDesc">Hide AI-related emails in Gmail (Promotions &amp; Social tabs)</span>
+            </span>
+          </div>
+          <label class="aics-toggle-switch">
+            <input type="checkbox" id="blockGmailEmails" disabled data-i18n-aria-label="blockGmailEmails" aria-label="Block AI emails in Gmail">
+            <span class="aics-slider"></span>
+          </label>
+        </div>
+        <div class="pro-feature-row" id="pro-news-row" role="group" data-i18n-aria-label="blockNewsAIContent" aria-label="Block AI-related content on top news sites">
+          <span class="pro-divider"></span>
+          <div class="pro-feature-content">
+            <span class="pro-locked" data-i18n-aria-label="proFeature" data-i18n-title="proFeature" aria-label="Pro feature" title="Pro feature">
+              <svg class="gold-lock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <rect x="4" y="9" width="12" height="7" rx="2" fill="#FFC107" stroke="#BFA32B" stroke-width="1.2"/>
+                <path d="M7 9V7a3 3 0 1 1 6 0v2" stroke="#BFA32B" stroke-width="1.2" fill="none"/>
+                <circle cx="10" cy="13" r="1.2" fill="#BFA32B"/>
+              </svg>
+            </span>
+            <span style="flex:1; min-width:0;">
+              <span class="pro-feature-title small" data-i18n="blockNewsAIContent">Block AI-related content on top news sites</span>
+              <span class="pro-feature-desc small" data-i18n="blockNewsAIContentDesc">Enable AI content blocking on top news websites (NYTimes, CNN, BBC, Fox, etc.)</span>
+            </span>
+          </div>
+          <label class="aics-toggle-switch">
+            <input type="checkbox" id="blockNewsAIContent" disabled data-i18n-aria-label="blockNewsAIContent" aria-label="Block AI-related content on top news sites">
+            <span class="aics-slider"></span>
+          </label>
+        </div>
+        <div class="pro-feature-row" id="pro-amazon-row" role="group" data-i18n-aria-label="blockAmazonEbayAISummaries" aria-label="Block AI summaries on Amazon & eBay">
+          <span class="pro-divider"></span>
+          <div class="pro-feature-content">
+            <span class="pro-locked" data-i18n-aria-label="proFeature" data-i18n-title="proFeature" aria-label="Pro feature" title="Pro feature">
+              <svg class="gold-lock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <rect x="4" y="9" width="12" height="7" rx="2" fill="#FFC107" stroke="#BFA32B" stroke-width="1.2"/>
+                <path d="M7 9V7a3 3 0 1 1 6 0v2" stroke="#BFA32B" stroke-width="1.2" fill="none"/>
+                <circle cx="10" cy="13" r="1.2" fill="#BFA32B"/>
+              </svg>
+            </span>
+            <span style="flex:1; min-width:0;">
+              <span class="pro-feature-title small" data-i18n="blockAmazonEbayAISummaries">Block AI summaries on Amazon &amp; eBay</span>
+              <span class="pro-feature-desc small" data-i18n="blockAmazonEbayAISummariesDesc">Hide AI-generated review summaries and description highlights</span>
+            </span>
+          </div>
+          <label class="aics-toggle-switch">
+            <input type="checkbox" id="blockAmazonEbayAISummaries" disabled data-i18n-aria-label="blockAmazonEbayAISummaries" aria-label="Block AI summaries on Amazon & eBay">
+            <span class="aics-slider"></span>
+          </label>
+        </div>
+        <div class="pro-feature-row" id="pro-schedule-row" role="group" data-i18n-aria-label="scheduleBasedBlocking" aria-label="Schedule-Based Blocking">
+          <span class="pro-divider"></span>
+          <div class="pro-feature-content">
+            <span class="pro-locked" data-i18n-aria-label="proFeature" data-i18n-title="proFeature" aria-label="Pro feature" title="Pro feature">
+              <svg class="gold-lock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <rect x="4" y="9" width="12" height="7" rx="2" fill="#FFC107" stroke="#BFA32B" stroke-width="1.2"/>
+                <path d="M7 9V7a3 3 0 1 1 6 0v2" stroke="#BFA32B" stroke-width="1.2" fill="none"/>
+                <circle cx="10" cy="13" r="1.2" fill="#BFA32B"/>
+              </svg>
+            </span>
+            <span style="flex:1; min-width:0;">
+              <span class="pro-feature-title small" data-i18n="scheduleBasedBlocking">Schedule-Based Blocking</span>
+              <span class="pro-feature-desc small" data-i18n="scheduleBasedBlockingDesc">Automatically block AI content during your chosen hours.</span>
+            </span>
+          </div>
+          <label class="aics-toggle-switch">
+            <input type="checkbox" id="enableScheduleBlocking" disabled data-i18n-aria-label="scheduleBasedBlocking" aria-label="Schedule-Based Blocking">
+            <span class="aics-slider"></span>
+          </label>
+        </div>
+        <div class="schedule-blocking-button-container" id="schedule-blocking-button-container" style="display:none; margin-top:8px; margin-left:58px;">
+          <button class="edit-keywords-btn" id="choose-time-btn" data-i18n-aria-label="chooseTime" aria-label="Choose Time">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2zm0 18a8 8 0 0 1-8-8 8 8 0 0 1 8-8 8 8 0 0 1 8 8 8 8 0 0 1-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/>
+            </svg>
+            <span data-i18n="chooseTime">Choose Time</span>
+          </button>
+        </div>
+        <div class="pro-feature-row" id="pro-darkmode-row" role="group" data-i18n-aria-label="featureDarkMode" aria-label="Dark Mode">
+          <span class="pro-divider"></span>
+          <div class="pro-feature-content">
+            <span class="pro-locked" data-i18n-aria-label="proFeature" data-i18n-title="proFeature" aria-label="Pro feature" title="Pro feature">
+              <svg class="gold-lock" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <rect x="4" y="9" width="12" height="7" rx="2" fill="#FFC107" stroke="#BFA32B" stroke-width="1.2"/>
+                <path d="M7 9V7a3 3 0 1 1 6 0v2" stroke="#BFA32B" stroke-width="1.2" fill="none"/>
+                <circle cx="10" cy="13" r="1.2" fill="#BFA32B"/>
+              </svg>
+            </span>
+            <span style="flex:1; min-width:0;">
+              <span class="pro-feature-title small" data-i18n="featureDarkMode"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="vertical-align:middle;margin-right:0.25em;" aria-hidden="true"><path d="M21 12.79A9 9 0 0 1 12.79 3a7 7 0 1 0 8.21 9.79z" fill="#bfa32b"/></svg>Dark Mode</span>
+              <span class="pro-feature-desc small" data-i18n="darkModeDesc">Enable dark mode for all extension pages</span>
+            </span>
+          </div>
+          <label class="aics-toggle-switch">
+            <input type="checkbox" id="enableDarkMode" disabled data-i18n-aria-label="featureDarkMode" aria-label="Dark Mode">
+            <span class="aics-slider"></span>
+          </label>
+        </div>
+        <div class="bottom-cta-text" id="bottomCtaText" style="display: none;" data-i18n="bottomCtaText">Unlock full AI content blocking across supported sites</div>
+        <div class="button-container">
+          <button class="upgrade-btn" id="proButton" style="display:none" data-i18n="startFreeTrial" data-i18n-aria-label="startFreeTrial" aria-label="Start free trial">Start free trial</button>
+          <button class="refresh-btn" id="refreshSubscriptionBtn" style="display:none" aria-label="Refresh Subscription Status">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px" height="30px">
+              <path fill="#8bb7f0" d="M3.207,26.5l2.108-2.107l-0.32-0.353C2.741,21.552,1.5,18.342,1.5,15C1.5,7.556,7.556,1.5,15,1.5 c0.461,0,0.945,0.032,1.5,0.101v3.012C15.993,4.538,15.49,4.5,15,4.5C9.21,4.5,4.5,9.21,4.5,15c0,2.516,0.918,4.955,2.584,6.868 l0.352,0.404L9.5,20.207V26.5H3.207z"/>
+              <path fill="#4e7ab5" d="M15,2c0.315,0,0.643,0.016,1,0.049v1.999C15.663,4.016,15.329,4,15,4C8.935,4,4,8.935,4,15 c0,2.636,0.961,5.192,2.707,7.196l0.704,0.808l0.758-0.758L9,21.414V26H4.414l0.918-0.918l0.673-0.673l-0.639-0.705 C3.195,21.308,2,18.217,2,15C2,7.832,7.832,2,15,2 M15,1C7.268,1,1,7.268,1,15c0,3.612,1.377,6.895,3.625,9.375L2,27h8v-8 l-2.539,2.539C5.935,19.787,5,17.508,5,15C5,9.477,9.477,5,15,5c0.686,0,1.353,0.076,2,0.208V1.165C16.345,1.068,15.682,1,15,1 L15,1z"/>
+              <g><path fill="#8bb7f0" d="M15,28.5c-0.461,0-0.945-0.032-1.5-0.101v-3.012c0.507,0.075,1.01,0.113,1.5,0.113 c5.79,0,10.5-4.71,10.5-10.5c0-2.516-0.918-4.955-2.584-6.868l-0.352-0.404L20.5,9.793V3.5h6.293l-2.108,2.107l0.32,0.353 C27.259,8.448,28.5,11.658,28.5,15C28.5,22.444,22.444,28.5,15,28.5z"/><path fill="#4e7ab5" d="M25.586,4l-0.918,0.918l-0.673,0.673l0.639,0.705C26.805,8.692,28,11.783,28,15 c0,7.168-5.832,13-13,13c-0.315,0-0.643-0.016-1-0.049v-1.999C14.337,25.984,14.671,26,15,26c6.065,0,11-4.935,11-11 c0-2.636-0.961-5.192-2.707-7.196L22.59,6.996l-0.758,0.758L21,8.586V4H25.586 M28,3h-8v8l2.539-2.539 C24.065,10.213,25,12.492,25,15c0,5.523-4.477,10-10,10c-0.686,0-1.353-0.076-2-0.208v4.043C13.655,28.932,14.318,29,15,29 c7.732,0,14-6.268,14-14c0-3.612-1.377-6.895-3.625-9.375L28,3L28,3z"/></g>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="settings-col" role="region" data-i18n-aria-label="generalSettings" aria-label="Free Features">
+        <div class="settings-group">
+          <div class="section-title" data-i18n="generalSettings" role="heading" aria-level="2" style="margin-bottom: 8px;">Free Features</div>
+          <div class="toggle-row" role="group" data-i18n-aria-label="enableExtension" aria-label="Enable Extension">
+            <span>
+              <span class="toggle-label" data-i18n="enableExtension">Enable Extension</span>
+            </span>
+            <label class="aics-toggle-switch">
+              <input type="checkbox" id="isEnabled" data-i18n-aria-label="enableExtension" aria-label="Enable Extension">
+              <span class="aics-slider"></span>
+            </label>
+          </div>
+          <div class="toggle-row" role="group" data-i18n-aria-label="blockSearchAIOverview" aria-label="Block AI Mode, Overview on Google & Bing">
+            <span>
+              <span class="toggle-label" data-i18n="blockSearchAIOverview">Block AI Mode, Overview on Google &amp; Bing</span>
+            </span>
+            <label class="aics-toggle-switch">
+              <input type="checkbox" id="blockSearchAIOverview" checked data-i18n-aria-label="blockSearchAIOverview" aria-label="Block AI Mode, Overview on Google & Bing">
+              <span class="aics-slider"></span>
+            </label>
+          </div>
+          <div class="toggle-row" role="group" data-i18n-aria-label="blockYouTubeAIVideos" aria-label="Block AI-related YouTube videos & summaries">
+            <span>
+              <span class="toggle-label" data-i18n="blockYouTubeAIVideos">Block AI-related YouTube videos & summaries</span>
+            </span>
+            <label class="aics-toggle-switch">
+              <input type="checkbox" id="blockYouTubeAI" checked data-i18n-aria-label="blockYouTubeAIVideos" aria-label="Block AI-related YouTube videos & summaries">
+              <span class="aics-slider"></span>
+            </label>
+          </div>
+          <div class="toggle-row" role="group" data-i18n-aria-label="blockXAIPosts" aria-label="Block AI-related posts, Grok actions on X.com">
+            <span>
+              <span class="toggle-label" data-i18n="blockXAIPosts">Block AI-related posts, Grok actions on X.com</span>
+            </span>
+            <label class="aics-toggle-switch">
+              <input type="checkbox" id="blockXAITweets" checked data-i18n-aria-label="blockXAIPosts" aria-label="Block AI-related posts, Grok actions on X.com">
+              <span class="aics-slider"></span>
+            </label>
+          </div>
+          <div class="toggle-row" role="group" data-i18n-aria-label="blockInstagramAIPosts" aria-label="Block AI-related posts on Instagram, Facebook &amp; Threads">
+            <span>
+              <span class="toggle-label" data-i18n="blockInstagramAIPosts">Block tagged AI-generated, AI-related posts on Instagram, Facebook &amp; Threads</span>
+            </span>
+            <label class="aics-toggle-switch">
+              <input type="checkbox" id="blockInstagramAIPosts" checked data-i18n-aria-label="blockInstagramAIPosts" aria-label="Block AI-related posts on Instagram, Facebook &amp; Threads">
+              <span class="aics-slider"></span>
+            </label>
+          </div>
+          <div class="toggle-row" role="group" data-i18n-aria-label="blockSpotifyYoutubeMusicArtists" aria-label="Block AI artists on Spotify, YouTube Music, Apple Music &amp; SoundCloud">
+            <span>
+              <span class="toggle-label" data-i18n="blockSpotifyYoutubeMusicArtists">Block AI artists on <b>Spotify</b>, <b>YouTube Music</b>, <b>Apple Music</b> &amp; <b>SoundCloud</b></span>
+            </span>
+            <label class="aics-toggle-switch">
+              <input type="checkbox" id="blockSpotifyYoutubeMusicArtists" checked data-i18n-aria-label="blockSpotifyYoutubeMusicArtists" aria-label="Block AI artists on Spotify, YouTube Music, Apple Music &amp; SoundCloud">
+              <span class="aics-slider"></span>
+            </label>
+          </div>
+          <div class="toggle-row" role="group" data-i18n-aria-label="blockRedditAIPosts" aria-label="Block AI answers, AI-related posts on Reddit">
+            <span>
+              <span class="toggle-label" data-i18n="blockRedditAIPosts">Block AI answers, AI-related posts on Reddit</span>
+            </span>
+            <label class="aics-toggle-switch">
+              <input type="checkbox" id="blockRedditAIPosts" checked data-i18n-aria-label="blockRedditAIPosts" aria-label="Block AI answers, AI-related posts on Reddit">
+              <span class="aics-slider"></span>
+            </label>
+          </div>
+          <div class="toggle-row" role="group" data-i18n-aria-label="blockPinterestAIPosts" aria-label="Block AI-related posts on Pinterest">
+            <span>
+              <span class="toggle-label" data-i18n="blockPinterestAIPosts">Block AI-related posts on Pinterest</span>
+            </span>
+            <label class="aics-toggle-switch">
+              <input type="checkbox" id="blockPinterestAIPosts" checked data-i18n-aria-label="blockPinterestAIPosts" aria-label="Block AI-related posts on Pinterest">
+              <span class="aics-slider"></span>
+            </label>
+          </div>
+          <div class="toggle-row" role="group" data-i18n-aria-label="blockGeneralAIPosts" aria-label="Block AI-related content on other websites">
+            <span>
+              <span class="toggle-label" data-i18n="blockGeneralAIPosts">Block AI-related content on other websites</span>
+            </span>
+            <label class="aics-toggle-switch">
+              <input type="checkbox" id="blockGeneralAIPosts" checked data-i18n-aria-label="blockGeneralAIPosts" aria-label="Block AI-related content on other websites">
+              <span class="aics-slider"></span>
+            </label>
+          </div>
+          
+          <!-- Stats Button (PRO Only) -->
+          <div id="statsButtonContainer" class="button-container" style="display: none; margin-top: 16px;">
+            <button class="edit-keywords-btn" id="statsButton" data-i18n-aria-label="viewStats" aria-label="View Stats">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M5 9.2h3V19H5zM10.6 5h2.8v14h-2.8zm5.6 8H19v6h-2.8z"/>
+              </svg>
+              <span data-i18n="viewStats">View Stats</span>
+            </button>
+          </div>
+          
+          <!-- Sharing Block -->
+          <div id="aics-referral-block" style="display:none;" role="region" data-i18n-aria-label="shareExtension" aria-label="Share extension">
+            <div style="font-weight:600;font-size:0.98em;color:#222;margin-bottom:8px;" data-i18n-html="shareUsToMakeWebHuman">Invite friends → earn rewards</div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px;">
+              <span style="font-size:0.9em;color:#666;margin-right:4px;" data-i18n="quickShare">Quick share:</span>
+              <a href="#" id="share-x" class="aics-share-icon" data-i18n-aria-label="shareOnX" data-i18n-title="shareOnX" aria-label="Share on X" title="Share on X">
+                <img src="../icons/social/x.svg" data-i18n-alt="socialX" alt="X" width="18" height="18" />
+              </a>
+              <a href="#" id="share-facebook" class="aics-share-icon" data-i18n-aria-label="shareOnFacebook" data-i18n-title="shareOnFacebook" aria-label="Share on Facebook" title="Share on Facebook">
+                <img src="../icons/social/facebook.svg" data-i18n-alt="socialFacebook" alt="Facebook" width="18" height="18" />
+              </a>
+              <a href="#" id="share-threads" class="aics-share-icon" data-i18n-aria-label="shareOnThreads" data-i18n-title="shareOnThreads" aria-label="Share on Threads" title="Share on Threads">
+                <img src="../icons/social/threads.svg" data-i18n-alt="socialThreads" alt="Threads" width="18" height="18" />
+              </a>
+              <a href="#" id="share-instagram" class="aics-share-icon" data-i18n-aria-label="shareOnInstagram" data-i18n-title="shareOnInstagram" aria-label="Share on Instagram" title="Share on Instagram">
+                <img src="../icons/social/instagram.svg" data-i18n-alt="socialInstagram" alt="Instagram" width="18" height="18" />
+              </a>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;">
+              <input id="aics-referral-url" type="text" readonly style="flex:1;min-width:200px;max-width:100%;font-size:0.80em;padding:6px 8px;border-radius:12px;border:1px solid #d0d7de;background:#fff;color:#222;font-weight:500;outline:none;height:30px;cursor:pointer;transition:all 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);" data-i18n-aria-label="referralUrl" aria-label="Referral URL" />
+              <button id="aics-referral-copy" style="background:#2196f3;color:#fff;border:none;border-radius:16px;padding:6px 16px;font-weight:500;font-size:0.97em;cursor:pointer;transition:all 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);height:30px;box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);position:relative;overflow:hidden;letter-spacing:0.1px;" data-i18n="copyButton" data-i18n-aria-label="copyButton" aria-label="Copy">Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Smart blocking info message -->
+    <div id="smart-blocking-info" class="smart-blocking-info" style="max-width:800px;margin:0 auto 8px auto;display:none;" role="region" data-i18n-aria-label="smartBlockingInfoAriaLabel" aria-label="Smart blocking information">
+      <div class="smart-blocking-content" style="display:flex;align-items:center;justify-content:space-between;background:#f7f8fa;border-radius:12px;padding:10px 14px 10px 16px;border:1px solid #2196f3;transition:all 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);position:relative;overflow:hidden;">
+        <div class="smart-blocking-overlay" style="position:absolute;top:0;left:0;right:0;bottom:0;background:#2196f3;opacity:0;transition:opacity 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);pointer-events:none;"></div>
+        <span style="display:flex;align-items:center;gap:8px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;" aria-hidden="true">
+            <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="#2196f3"/>
+          </svg>
+          <span class="smart-blocking-text" style="font-size:0.95em;color:#222;font-weight:500;line-height:1.3;letter-spacing:0.01em;" data-i18n="smartBlockingInfo">Smart blocking: We don't interfere when you're actively searching for AI terms or visiting AI sites.</span>
+        </span>
+        <button id="close-smart-blocking-info" class="smart-blocking-close" style="background:#f0f0f0;border:1px solid #ddd;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s cubic-bezier(0.2, 0.0, 0, 1.0);color:#666;flex-shrink:0;margin-left:16px;" data-i18n-aria-label="closeSmartBlockingInfo" data-i18n-title="closeSmartBlockingInfo" aria-label="Close smart blocking information" title="Close smart blocking information">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+          </svg>
+        </button>
+      </div>
+    </div>   
+    
+  </div>
+  <script src="utils/i18n.js"></script>
+  <script src="utils/theme-manager.js"></script>
+  <!-- Stats Modal -->
+  <div id="statsModal" class="stats-modal" role="dialog" aria-labelledby="statsModalTitle" aria-modal="true" style="display: none;">
+    <div class="stats-modal-overlay"></div>
+    <div class="stats-modal-content">
+      <div class="stats-modal-header">
+        <h2 id="statsModalTitle" class="stats-modal-title" data-i18n="statsTitle">Blocking Statistics</h2>
+        <button class="stats-modal-close" id="statsModalClose" aria-label="Close stats modal">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="stats-modal-body">
+        <!-- Summary Cards -->
+        <div class="stats-summary-grid">
+          <div class="stats-card">
+            <div class="stats-card-icon">
+              <!-- Calendar / Today -->
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="4" width="18" height="17" rx="3" stroke="#2196f3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 2v4M16 2v4" stroke="#2196f3" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M3 9h18" stroke="#2196f3" stroke-width="1.8" stroke-linecap="round"/>
+                <rect x="8" y="13" width="4" height="4" rx="1" fill="#2196f3"/>
+              </svg>
+            </div>
+            <div class="stats-card-content">
+              <div class="stats-card-value" id="todayBlocked">0</div>
+              <div class="stats-card-label" data-i18n="todayBlocked">Today</div>
+            </div>
+          </div>
+          
+          <div class="stats-card">
+            <div class="stats-card-icon">
+              <!-- Trending Up / This Week -->
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                <polyline points="3,17 9,11 13,15 21,7" stroke="#2196f3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <polyline points="15,7 21,7 21,13" stroke="#2196f3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <line x1="3" y1="20" x2="21" y2="20" stroke="#2196f3" stroke-width="1.5" stroke-linecap="round" opacity="0.35"/>
+              </svg>
+            </div>
+            <div class="stats-card-content">
+              <div class="stats-card-value" id="weekBlocked">0</div>
+              <div class="stats-card-label" data-i18n="weekBlocked">This Week</div>
+            </div>
+          </div>
+          
+          <div class="stats-card">
+            <div class="stats-card-icon">
+              <!-- Calendar grid / This Month -->
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="4" width="18" height="17" rx="3" stroke="#2196f3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8 2v4M16 2v4" stroke="#2196f3" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M3 9h18" stroke="#2196f3" stroke-width="1.8" stroke-linecap="round"/>
+                <circle cx="8" cy="14" r="1" fill="#2196f3"/>
+                <circle cx="12" cy="14" r="1" fill="#2196f3"/>
+                <circle cx="16" cy="14" r="1" fill="#2196f3"/>
+                <circle cx="8" cy="18" r="1" fill="#2196f3"/>
+                <circle cx="12" cy="18" r="1" fill="#2196f3"/>
+              </svg>
+            </div>
+            <div class="stats-card-content">
+              <div class="stats-card-value" id="monthBlocked">0</div>
+              <div class="stats-card-label" data-i18n="monthBlocked">This Month</div>
+            </div>
+          </div>
+          
+          <div class="stats-card">
+            <div class="stats-card-icon">
+              <!-- Shield / All Time -->
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 3L4 6.5V12C4 17 12 21 12 21C12 21 20 17 20 12V6.5L12 3Z" stroke="#2196f3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="#2196f3" fill-opacity="0.08"/>
+                <path d="M9 12.5L11 14.5L15 10.5" stroke="#2196f3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="stats-card-content">
+              <div class="stats-card-value" id="totalBlocked">0</div>
+              <div class="stats-card-label" data-i18n="totalBlocked">All Time</div>
+            </div>
+          </div>
+          
+          <div class="stats-card">
+            <div class="stats-card-icon">
+              <!-- Clock / Time Saved -->
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="9" stroke="#2196f3" stroke-width="1.8"/>
+                <path d="M12 7v5l3 3" stroke="#2196f3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="stats-card-content">
+              <div class="stats-card-value stats-card-value-with-info">
+                <span class="stats-value-hours-group"><span id="timeSavedBlocked">0</span><span class="stats-hours-suffix" id="statsHoursSuffix" aria-hidden="true"></span></span>
+                <span class="stats-card-info-icon" data-i18n-title="timeSavedTooltip" title="Estimated using 10 minutes per blocked AI video/article, etc." aria-label="How is this calculated?">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <path d="M12 16V12M12 8H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </div>
+              <div class="stats-card-label" data-i18n="timeSaved">Time Saved</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Detailed Stats -->
+        <div class="stats-sections">
+          <div class="stats-section">
+            <h3 class="stats-section-title" data-i18n="platformStats">By Platform</h3>
+            <div class="stats-list" id="platformStats">
+              <!-- Will be populated by JavaScript -->
+            </div>
+          </div>
+          
+          <div class="stats-section">
+            <h3 class="stats-section-title" data-i18n="typeStats">By Content Type</h3>
+            <div class="stats-list" id="typeStats">
+              <!-- Will be populated by JavaScript -->
+            </div>
+          </div>
+          
+          <div class="stats-section">
+            <h3 class="stats-section-title" data-i18n="recentActivity">Recent Activity</h3>
+            <div class="stats-activity" id="recentActivity">
+              <!-- Will be populated by JavaScript -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="utils/custom-keywords.js"></script>  
+  <script src="utils/schedule-blocking.js"></script>
+  <script src="settings.js"></script>
+  <!-- <script src="utils/dev-tools.js"></script> -->
+  <!-- Sticky CTA Button -->
+  <div class="sticky-cta-container" id="stickyCta" role="region" aria-label="Upgrade to PRO" style="display: none;">
+    <div class="sticky-cta-inner">
+      <button class="sticky-cta-button" id="stickyProButton" data-i18n="startFreeTrial" data-i18n-aria-label="startFreeTrial" aria-label="Start free trial">Start free trial</button>
+      <div class="sticky-cta-microcopy" data-i18n="stickyCtaMicrocopy">Blocks far more AI content • Free trial • Cancel anytime</div>
+    </div>
+  </div>
+</body>
+</html> 

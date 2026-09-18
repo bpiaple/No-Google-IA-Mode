@@ -1,0 +1,279 @@
+/**
+ * Common Dark Mode Styles for AI Content Shield Extension
+ * Used across all extension pages (popup, settings, share, subscribe, update)
+ */
+
+/* Base body and container styles */
+body.theme-dark {
+  background: #181a1b !important;
+  color: #f1f1f1 !important;
+}
+
+body.theme-dark .container {
+  background: #23272a !important;
+  color: #f1f1f1 !important;
+}
+
+/* Typography */
+body.theme-dark .main-title {
+  color: #f1f1f1 !important;
+}
+
+body.theme-dark .main-title span {
+  color: #f1f1f1 !important;
+}
+
+body.theme-dark .main-title .total-items {
+  color: #e53935 !important;
+}
+
+body.theme-dark .desc {
+  color: #ccc !important;
+}
+
+body.theme-dark .section-title {
+  color: #64b5f6 !important;
+}
+
+/* Buttons and Interactive Elements */
+body.theme-dark .try-btn {
+  background: #ffc107 !important;
+  color: #222 !important;
+}
+
+body.theme-dark .try-btn:hover {
+  background: #e6b800 !important;
+}
+
+body.theme-dark .copy-btn {
+  background: #2196f3 !important;
+  color: #fff !important;
+}
+
+body.theme-dark .copy-btn:hover {
+  background: #1769aa !important;
+}
+
+body.theme-dark .copy-btn.copied {
+  background: #4caf50 !important;
+}
+
+/* Form Elements */
+body.theme-dark input[type="text"],
+body.theme-dark input[type="email"],
+body.theme-dark input[type="password"],
+body.theme-dark textarea,
+body.theme-dark select {
+  background: #23272a !important;
+  border: 2px solid #3d3d3d !important;
+  color: #f1f1f1 !important;
+}
+
+body.theme-dark input[type="text"]:focus,
+body.theme-dark input[type="email"]:focus,
+body.theme-dark input[type="password"]:focus,
+body.theme-dark textarea:focus,
+body.theme-dark select:focus {
+  border-color: #2196f3 !important;
+}
+
+/* Dividers and Separators */
+body.theme-dark .divider,
+body.theme-dark hr {
+  border-top: 1.5px solid #3d3d3d !important;
+}
+
+body.theme-dark .footer-divider {
+  border-top: 1px solid #3d3d3d !important;
+}
+
+/* Feature Lists */
+body.theme-dark .features-title {
+  color: #f1f1f1 !important;
+}
+
+body.theme-dark .feature-list li {
+  color: #f1f1f1 !important;
+}
+
+body.theme-dark .feature-list .check {
+  color: #43b94a !important;
+}
+
+/* Plan Toggles */
+body.theme-dark .plan-toggle {
+  background: #2d2d2d !important;
+  border: 1px solid #3d3d3d !important;
+}
+
+body.theme-dark .plan-toggle button {
+  color: #f1f1f1 !important;
+}
+
+body.theme-dark .plan-toggle .selected {
+  background: #2196f3 !important;
+  color: #fff !important;
+}
+
+body.theme-dark .save-badge {
+  background: #2196f3 !important;
+  color: #fff !important;
+}
+
+/* Pro-related Elements */
+body.theme-dark .pro-block {
+  background: #2d2d2d !important;
+  border: 2.5px solid #ffc107 !important;
+}
+
+body.theme-dark .pro-title {
+  color: #ffc107 !important;
+}
+
+body.theme-dark .pro-price {
+  color: #f1f1f1 !important;
+}
+
+body.theme-dark .pro-price-desc {
+  color: #aaa !important;
+}
+
+body.theme-dark .trial-text {
+  color: #aaa !important;
+}
+
+body.theme-dark .pro-link {
+  color: #ffc107 !important;
+}
+
+body.theme-dark .pro-link:hover {
+  color: #e6b800 !important;
+  background-color: rgba(255, 193, 7, 0.1) !important;
+}
+
+/* Social Icons and Footer */
+body.theme-dark .social-icon {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 50% !important;
+}
+
+body.theme-dark .social-icon:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+
+body.theme-dark .footer-msg {
+  color: #ccc !important;
+}
+
+body.theme-dark .share-icon {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 4px !important;
+}
+
+body.theme-dark .share-icon:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Cards and Blocks */
+body.theme-dark .reward-level,
+body.theme-dark .referral-block {
+  background: #2d2d2d !important;
+  border: 1px solid #3d3d3d !important;
+}
+
+body.theme-dark .reward-title,
+body.theme-dark .referral-title {
+  color: #f1f1f1 !important;
+}
+
+body.theme-dark .reward-benefit {
+  color: #64b5f6 !important;
+}
+
+body.theme-dark .referral-desc {
+  color: #aaa !important;
+}
+
+body.theme-dark .referral-input {
+  background: #23272a !important;
+  border: 2px solid #3d3d3d !important;
+  color: #f1f1f1 !important;
+}
+
+body.theme-dark .referral-input:focus {
+  border-color: #2196f3 !important;
+}
+
+/* Generic text colors */
+body.theme-dark p,
+body.theme-dark span,
+body.theme-dark div {
+  color: inherit;
+}
+
+body.theme-dark .text-secondary {
+  color: #aaa !important;
+}
+
+body.theme-dark .text-muted {
+  color: #888 !important;
+}
+
+/* Dark mode overrides for popup borders and text visibility */
+body.theme-dark .toggle-row {
+  border-bottom: 1px solid #3d3d3d !important;
+}
+
+body.theme-dark .popup-footer {
+  background: #23272a !important;
+  border-top: 1px solid #3d3d3d !important;
+  color: #f1f1f1 !important;
+}
+
+/* Fix "Cancel anytime" text visibility on subscribe and update pages */
+body.theme-dark [style*="font-weight: 400; font-size: 1em;"] {
+  color: #f1f1f1 !important;
+}
+
+/* More specific selector for Cancel anytime text */
+body.theme-dark .cancel-anytime-text,
+body.theme-dark span[style*="font-weight: 400"]:not([class]) {
+  color: #f1f1f1 !important;
+}
+
+/* Smart Blocking Info Message */
+body.theme-dark .smart-blocking-content {
+  background: #2d2d2d !important;
+  border-color: #64b5f6 !important;
+}
+
+body.theme-dark .smart-blocking-text {
+  color: #f1f1f1 !important;
+}
+
+body.theme-dark .smart-blocking-overlay {
+  background: #64b5f6 !important;
+}
+
+body.theme-dark .smart-blocking-content svg path {
+  fill: #64b5f6 !important;
+}
+
+body.theme-dark .smart-blocking-close {
+  background: #3d3d3d !important;
+  border-color: #555 !important;
+  color: #ccc !important;
+}
+
+body.theme-dark .smart-blocking-close:hover {
+  background: rgba(100, 181, 246, 0.1) !important;
+  border-color: #64b5f6 !important;
+  color: #64b5f6 !important;
+}
+
+/* Light mode hover effects for smart blocking close button */
+.smart-blocking-close:hover {
+  background: #e3f2fd !important;
+  border-color: #2196f3 !important;
+  color: #2196f3 !important;
+} 

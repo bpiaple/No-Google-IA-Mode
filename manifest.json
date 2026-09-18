@@ -1,0 +1,39 @@
+{
+   "action": {
+      "default_icon": {
+         "128": "icons/icon128.png",
+         "16": "icons/icon16.png",
+         "48": "icons/icon48.png"
+      },
+      "default_popup": "popup.html"
+   },
+   "background": {
+      "service_worker": "background.js",
+      "type": "module"
+   },
+   "content_scripts": [ {
+      "js": [ "content.js" ],
+      "matches": [ "\u003Call_urls>" ],
+      "run_at": "document_start"
+   } ],
+   "default_locale": "fr",
+   "description": "Extension de la Ville de Rimouski pour supprimer le mode IA de Google dans le moteur de recherche.",
+   "homepage_url": "https://www.aicontentshield.app",
+   "host_permissions": [],
+   "icons": {
+      "128": "icons/icon128.png",
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2VN56wR7rcelOTBrQ2XnkFnSywoxt6Qfs/3zXhmpM//N6XtNy47Ssz3l0L2E7MnBZhGJmg36iNQ/my38FfFhhPR8sQOazKqonFtAoLyv9fjF6GWz8E7s4X7dpamGQJCsmRRoE7R5NDj894Y7QtLpto2wXXQ6vKFpkn/b+4J9XAMV/xQ3F3Vo6gGY/PCYdj/o362XNhiBYrJh/ihiAbvG2bR057qX6L0/ieYrcV8Eoz9xQRCuzFhZl7bMR/PDpBKS/OriquqdqZsUpsboxc4xScMGt/e/fW47gYK7qyEeMOqPpfPq07cY/z1YFKQFhrUFWnXQo59cl7zCR8Qo4QbgXQIDAQAB",
+   "manifest_version": 3,
+   "name": "Ville de Rimouski / Pas de Mode IA Google",
+   "permissions": [ "storage", "activeTab", "scripting", "tabs" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.0.0",
+   "web_accessible_resources": [ {
+      "matches": [ "\u003Call_urls>" ],
+      "resources": [ "icons/*" ]
+   } ]
+}
