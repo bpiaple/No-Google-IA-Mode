@@ -1,0 +1,9 @@
+{
+  "disabledDomains": [
+    "*.gouv.qc.ca",
+    "*.qc.ca"
+  ],
+  "allowedDomains": [
+    "*.google.com"
+  ]
+}

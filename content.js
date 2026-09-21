@@ -1748,13 +1748,36 @@ function setCurrentPageBlockedCount(count) {
 function shouldSkipHistoryReset() {
     return window.location.hostname === 'mail.google.com';
 }
-function isAllowedGovernmentSite(hostname, allowedSites) {
-    const isGovernmentSite = hostname === 'gouv.qc.ca' || hostname.endsWith('.gouv.qc.ca');
-    if (!isGovernmentSite)
-        return true;
-    return (Array.isArray(allowedSites) ? allowedSites : []).some(site => {
-        const normalizedSite = String(site).trim().toLowerCase().replace(/^https?:\/\//, '').replace(/\/.*$/, '');
-        return normalizedSite && (hostname === normalizedSite || hostname.endsWith(`.${normalizedSite}`));
+function domainMatchesPattern(hostname, pattern) {
+    const normalizedHostname = String(hostname).trim().toLowerCase();
+    const normalizedPattern = String(pattern).trim().toLowerCase().replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+    if (!normalizedHostname || !normalizedPattern)
+        return false;
+    if (normalizedPattern.startsWith('*.')) {
+        const rootDomain = normalizedPattern.slice(2);
+        return normalizedHostname === rootDomain || normalizedHostname.endsWith(`.${rootDomain}`);
+    }
+    if (!normalizedPattern.includes('*'))
+        return normalizedHostname === normalizedPattern || normalizedHostname.endsWith(`.${normalizedPattern}`);
+    const expression = new RegExp(`^${normalizedPattern.split('*').map(part => part.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('.*')}$`);
+    return expression.test(normalizedHostname);
+}
+let packagedDomainPolicyPromise;
+function getPackagedDomainPolicy() {
+    if (!packagedDomainPolicyPromise) {
+        packagedDomainPolicyPromise = fetch(chrome.runtime.getURL('site-policy.json'))
+            .then(response => response.ok ? response.json() : Promise.reject(new Error('Unable to load site policy')))
+            .catch(() => ({ disabledDomains: ['*.gouv.qc.ca'], allowedDomains: [] }));
+    }
+    return packagedDomainPolicyPromise;
+}
+function isConfiguredDomainDisabled(hostname, callback) {
+    getPackagedDomainPolicy().then(policy => {
+        const disabledDomains = policy.disabledDomains;
+        const allowedDomains = policy.allowedDomains;
+        const isDisabled = (Array.isArray(disabledDomains) ? disabledDomains : []).some(pattern => domainMatchesPattern(hostname, pattern));
+        const isAllowed = (Array.isArray(allowedDomains) ? allowedDomains : []).some(pattern => domainMatchesPattern(hostname, pattern));
+        callback(isDisabled && !isAllowed);
     });
 }
 /**
@@ -1832,10 +1855,11 @@ function getBlockingState(callback) {
     // First check the global isEnabled setting
     chrome.storage.sync.get(['settings'], (syncResult) => {
         const settings = syncResult.settings || {};
-        if (!isAllowedGovernmentSite(hostname, settings.governmentAllowedSites)) {
-            callback(false);
-            return;
-        }
+        isConfiguredDomainDisabled(hostname, (isDisabled) => {
+            if (isDisabled) {
+                callback(false);
+                return;
+            }
         // If extension is globally disabled, return false immediately
         if (settings.isEnabled === false) {
             callback(false);
@@ -1854,6 +1878,7 @@ function getBlockingState(callback) {
             else {
                 callback(true);
             }
+        });
         });
     });
 }
@@ -1938,10 +1963,11 @@ function getGoogleBlockingSetting(callback) {
     // First check the global isEnabled setting
     chrome.storage.sync.get(['settings'], (syncResult) => {
         const settings = syncResult.settings || {};
-        if (!isAllowedGovernmentSite(hostname, settings.governmentAllowedSites)) {
-            callback(false);
-            return;
-        }
+        isConfiguredDomainDisabled(hostname, (isDisabled) => {
+            if (isDisabled) {
+                callback(false);
+                return;
+            }
         // If extension is globally disabled, return false immediately
         if (settings.isEnabled === false) {
             callback(false);
@@ -1965,6 +1991,7 @@ function getGoogleBlockingSetting(callback) {
             else {
                 callback(true);
             }
+        });
         });
     });
 }

@@ -13,7 +13,6 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 };
 const DEFAULT_SETTINGS = {
     isEnabled: true,
-    governmentAllowedSites: [],
     blocklistPatterns: [],
     blockCookiePopups: false,
     blockGmailEmails: false,
@@ -269,18 +268,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   const settings = await getSettings();
 
-  const governmentAllowedSitesInput = document.getElementById('governmentAllowedSites');
-  if (governmentAllowedSitesInput) {
-    governmentAllowedSitesInput.value = (settings.governmentAllowedSites || []).join('\n');
-    governmentAllowedSitesInput.addEventListener('change', async () => {
-      const sites = governmentAllowedSitesInput.value
-        .split(/\r?\n|,/) 
-        .map(site => site.trim().toLowerCase().replace(/^https?:\/\//, '').replace(/\/.*$/, ''))
-        .filter(Boolean);
-      await updateSettings({ governmentAllowedSites: [...new Set(sites)] });
-    });
-  }
-  
   // Initialize toggles (add dark mode toggle)
   const toggles = {
     isEnabled: document.getElementById('isEnabled'),

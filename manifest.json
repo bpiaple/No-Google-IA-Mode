@@ -33,6 +33,6 @@
    "version": "1.0.5",
    "web_accessible_resources": [ {
       "matches": [ "\u003Call_urls>" ],
-      "resources": [ "icons/*" ]
+      "resources": [ "icons/*", "site-policy.json" ]
    } ]
 }
