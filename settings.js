@@ -13,7 +13,7 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 };
 const DEFAULT_SETTINGS = {
     isEnabled: true,
-    isPro: true,
+    governmentAllowedSites: [],
     blocklistPatterns: [],
     blockCookiePopups: false,
     blockGmailEmails: false,
@@ -121,17 +121,8 @@ function isOperaBrowser() {
   return /OPR\/|Opera/i.test(navigator.userAgent);
 }
 
-// Define which toggles are PRO-only (global scope)
-const proOnlyToggles = [
-  'blockGmailEmails',
-  'blockAmazonEbayAISummaries',
-  'blockNewsAIContent',
-  'enableDarkMode',
-  'blockYouTubeAIVoiceVideos',
-  'blockLinkedinFacebookAIContent',
-  'enableCustomKeywords',
-  'enableScheduleBlocking'
-];
+// All extension features are available without a subscription.
+const proOnlyToggles = [];
 
 // Store previous PRO toggle states (global scope)
 let previousProToggleStates = {};
@@ -141,20 +132,10 @@ let previousProToggleStates = {};
  * @param {boolean} isEnabled - Whether custom keywords are enabled
  * @param {boolean} isPro - Whether user has PRO subscription
  */
-function updateCustomKeywordsButton(isEnabled, isPro = null) {
+function updateCustomKeywordsButton(isEnabled) {
   const buttonContainer = document.getElementById('custom-keywords-button-container');
   if (buttonContainer) {
-    // Only show button if user is PRO and toggle is enabled
-    if (isPro === null) {
-      // Get PRO status if not provided
-      getSettings().then(settings => {
-              const shouldShow = settings.isPro && isEnabled;
-      buttonContainer.style.display = shouldShow ? 'block' : 'none';
-      });
-    } else {
-      const shouldShow = isPro && isEnabled;
-      buttonContainer.style.display = shouldShow ? 'block' : 'none';
-    }
+    buttonContainer.style.display = isEnabled ? 'block' : 'none';
   }
 }
 
@@ -184,20 +165,10 @@ async function initializeCustomKeywords() {
  * @param {boolean} isEnabled - Whether schedule blocking is enabled
  * @param {boolean} isPro - Whether user has PRO subscription
  */
-function updateScheduleBlockingButton(isEnabled, isPro = null) {
+function updateScheduleBlockingButton(isEnabled) {
   const buttonContainer = document.getElementById('schedule-blocking-button-container');
   if (buttonContainer) {
-    // Only show button if user is PRO and toggle is enabled
-    if (isPro === null) {
-      // Get PRO status if not provided
-      getSettings().then(settings => {
-        const shouldShow = settings.isPro && isEnabled;
-        buttonContainer.style.display = shouldShow ? 'block' : 'none';
-      });
-    } else {
-      const shouldShow = isPro && isEnabled;
-      buttonContainer.style.display = shouldShow ? 'block' : 'none';
-    }
+    buttonContainer.style.display = isEnabled ? 'block' : 'none';
   }
 }
 
@@ -220,92 +191,6 @@ async function initializeScheduleBlocking() {
   } catch (error) {
     // Silent error handling
   }
-}
-
-// Check subscription status immediately on page load (no caching)
-async function checkAndUpdateSubscriptionStatus() {
-  return true;
-  /*
-  try {
-    if (typeof window !== 'undefined' && window.SubscriptionChecker) {
-      const isPro = await window.SubscriptionChecker.performSubscriptionCheck(true);
-      
-      // Get current settings and update if needed  
-      const currentSettings = await getSettings();
-      if (currentSettings.isPro !== isPro) {
-        
-        // If PRO is being activated for the first time, enable all PRO toggles
-        if (!currentSettings.isPro && isPro) {
-          const result = await chrome.storage.local.get(['proTogglesAutoEnabled']);
-          const hasBeenAutoEnabled = result.proTogglesAutoEnabled || false;
-          
-          if (!hasBeenAutoEnabled) {
-            
-            const proTogglesUpdates = {
-              blockYouTubeAIVoiceVideos: true,
-              blockLinkedinFacebookAIContent: true, 
-              blockGmailEmails: true,
-              blockNewsAIContent: true,
-              blockAmazonEbayAISummaries: true,
-              isPro: isPro // Include the PRO status
-            };
-            
-            // Update settings with PRO status and auto-enabled toggles
-            await updateSettings(proTogglesUpdates);
-            
-            // Update local storage for content scripts
-            await chrome.storage.local.set({
-              ...proTogglesUpdates,
-              proTogglesAutoEnabled: true
-            });
-          } else {
-            await updateSettings({ isPro });
-          }
-        } else {
-          await updateSettings({ isPro });
-        }
-        
-        // Always reload the page to reflect all changes (toggles, button text, etc.)
-        setTimeout(() => {
-          location.reload();
-        }, 500); // Small delay to ensure storage update completes
-      }
-      
-      return isPro;
-    }
-  } catch (error) {
-    // Silent error handling
-  }
-  return false;
-  */
-}
-
-/**
- * Initialize sticky button visibility based on midProButton scroll position
- */
-function initializeStickyButtonVisibility() {
-  const midProButton = document.getElementById('midProButton');
-  const stickyCta = document.getElementById('stickyCta');
-  
-  if (!midProButton || !stickyCta) return;
-  
-  // Create an Intersection Observer to watch the midProButton
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      // Show sticky button when midProButton is out of view
-      if (entry.isIntersecting) {
-        stickyCta.style.display = 'none';
-      } else {
-        stickyCta.style.display = 'flex';
-      }
-    });
-  }, {
-    threshold: 0,
-    rootMargin: '-80px 0px 0px 0px' // Trigger 80px before button fully scrolls out
-  });
-  
-  // Start observing the midProButton
-  observer.observe(midProButton);
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -383,9 +268,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   window.themeManager.currentTheme = currentTheme;
   
   const settings = await getSettings();
-  
-  // Check subscription status and update if needed
-  await checkAndUpdateSubscriptionStatus();
+
+  const governmentAllowedSitesInput = document.getElementById('governmentAllowedSites');
+  if (governmentAllowedSitesInput) {
+    governmentAllowedSitesInput.value = (settings.governmentAllowedSites || []).join('\n');
+    governmentAllowedSitesInput.addEventListener('change', async () => {
+      const sites = governmentAllowedSitesInput.value
+        .split(/\r?\n|,/) 
+        .map(site => site.trim().toLowerCase().replace(/^https?:\/\//, '').replace(/\/.*$/, ''))
+        .filter(Boolean);
+      await updateSettings({ governmentAllowedSites: [...new Set(sites)] });
+    });
+  }
   
   // Initialize toggles (add dark mode toggle)
   const toggles = {
@@ -415,7 +309,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Special handling for dark mode - enable for PRO users or Silver Level (5+ referrals)
       if (key === 'enableDarkMode') {
         const hasSilverOrAbove = await hasSilverLevelOrAbove();
-        const hasAccess = settings.isPro || hasSilverOrAbove;
+        const hasAccess = true;
         
         if (hasAccess) {
           element.disabled = false;

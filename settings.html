@@ -154,6 +154,25 @@
       color: #888;
       margin-top: 2px;
     }
+    .site-exception-settings {
+      background: #f7f8fa;
+      border: 1px solid #e1e4e8;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin: 10px 0 14px;
+    }
+    .site-exception-settings textarea {
+      box-sizing: border-box;
+      width: 100%;
+      margin-top: 8px;
+      padding: 8px 10px;
+      border: 1px solid #c7ccd1;
+      border-radius: 8px;
+      background: #fff;
+      color: #222;
+      font: inherit;
+      resize: vertical;
+    }
     
     /* MD3 Toggle Switch Styles */
     .aics-toggle-switch {
@@ -1815,6 +1834,11 @@
               <input type="checkbox" id="isEnabled" data-i18n-aria-label="enableExtension" aria-label="Enable Extension">
               <span class="aics-slider"></span>
             </label>
+          </div>
+          <div class="site-exception-settings">
+            <label class="toggle-label" for="governmentAllowedSites">Sites gouvernementaux autorisés</label>
+            <div class="toggle-desc">L’extension est désactivée sur les domaines *.gouv.qc.ca, sauf ceux inscrits ici.</div>
+            <textarea id="governmentAllowedSites" rows="4" placeholder="exemple.gouv.qc.ca"></textarea>
           </div>
           <!-- <div class="toggle-row" role="group" data-i18n-aria-label="blockSearchAIOverview" aria-label="Block AI Mode, Overview on Google & Bing">
             <span>

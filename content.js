@@ -71,13 +71,10 @@ function loadCustomYouTubeChannels() {
     return __awaiter(this, void 0, void 0, function* () {
         var _a;
         try {
-            // First verify PRO status
-            const syncResult = yield chrome.storage.sync.get(['settings']);
-            const isPro = ((_a = syncResult.settings) === null || _a === void 0 ? void 0 : _a.isPro) || false;
-            // PRO-only: when enableCustomKeywords toggle is off, user-added channels are disabled (built-in AI blocklists still work)
+            // User-added channels are controlled only by their local toggle.
             const localPrefs = yield chrome.storage.local.get(['enableCustomKeywords']);
             const filterEnabled = localPrefs.enableCustomKeywords !== false;
-            if (!isPro || !filterEnabled) {
+            if (!filterEnabled) {
                 // Remove user-added custom channels only; built-in AI blocklists always stay for everyone
                 for (const name of Array.from(BLOCKED_CHANNEL_NAMES)) {
                     if (!BUILTIN_BLOCKED_CHANNEL_NAMES.has(name)) {
@@ -1751,6 +1748,15 @@ function setCurrentPageBlockedCount(count) {
 function shouldSkipHistoryReset() {
     return window.location.hostname === 'mail.google.com';
 }
+function isAllowedGovernmentSite(hostname, allowedSites) {
+    const isGovernmentSite = hostname === 'gouv.qc.ca' || hostname.endsWith('.gouv.qc.ca');
+    if (!isGovernmentSite)
+        return true;
+    return (Array.isArray(allowedSites) ? allowedSites : []).some(site => {
+        const normalizedSite = String(site).trim().toLowerCase().replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+        return normalizedSite && (hostname === normalizedSite || hostname.endsWith(`.${normalizedSite}`));
+    });
+}
 /**
  * Set up global listeners for navigation and reload events.
  * @param onNavigate Callback to run on navigation or reload.
@@ -1826,6 +1832,10 @@ function getBlockingState(callback) {
     // First check the global isEnabled setting
     chrome.storage.sync.get(['settings'], (syncResult) => {
         const settings = syncResult.settings || {};
+        if (!isAllowedGovernmentSite(hostname, settings.governmentAllowedSites)) {
+            callback(false);
+            return;
+        }
         // If extension is globally disabled, return false immediately
         if (settings.isEnabled === false) {
             callback(false);
@@ -1928,6 +1938,10 @@ function getGoogleBlockingSetting(callback) {
     // First check the global isEnabled setting
     chrome.storage.sync.get(['settings'], (syncResult) => {
         const settings = syncResult.settings || {};
+        if (!isAllowedGovernmentSite(hostname, settings.governmentAllowedSites)) {
+            callback(false);
+            return;
+        }
         // If extension is globally disabled, return false immediately
         if (settings.isEnabled === false) {
             callback(false);
@@ -9848,10 +9862,8 @@ function runAmazonEbayBlocking() {
         // Check the specific Amazon & eBay AI blocking setting from storage
         chrome.storage.sync.get(['settings'], (result) => {
             const settings = result.settings || {};
-            const isPro = settings.isPro || false;
             const toggleEnabled = settings.blockAmazonEbayAISummaries === true;
-            // ALL conditions must be true: site/page enabled AND Pro AND toggle enabled
-            const shouldBlock = sitePageEnabled && isPro && toggleEnabled;
+            const shouldBlock = sitePageEnabled && toggleEnabled;
             if (shouldBlock) {
                 blockAISummaries();
             }
@@ -10037,10 +10049,8 @@ class GmailBlocker {
                 (0,_common__WEBPACK_IMPORTED_MODULE_1__/* .getBlockingState */ .dQ)((sitePageEnabled) => {
                     chrome.storage.sync.get(['settings'], (result) => {
                         const settings = result.settings || {};
-                        const isPro = settings.isPro || false;
                         const toggleEnabled = settings.blockGmailEmails === true;
-                        // All conditions must be true: site/page enabled AND Pro AND toggle enabled
-                        this.isEnabled = sitePageEnabled && isPro && toggleEnabled;
+                        this.isEnabled = sitePageEnabled && toggleEnabled;
                         if (this.isEnabled) {
                             this.startObserving();
                         }
@@ -11666,7 +11676,7 @@ function runInstagramProVoiceDetectionForVideo(video, article) {
             willRunDetection = instagramProVoiceVideoCounter % 3 === 1;
             instagramProVoiceVideoCounter++;
         }
-        if (!blockInstagramProVideo || !isProUser)
+        if (!blockInstagramProVideo)
             return;
         if (isInstagramProVoiceDetecting)
             return;
@@ -11701,7 +11711,7 @@ function runInstagramProVoiceDetectionForVideo(video, article) {
  * Attaches listeners; 5s after play, runs AI voice detection if video qualifies.
  */
 function runInstagramProVideoDetection() {
-    if (!blockInstagramProVideo || !isProUser)
+    if (!blockInstagramProVideo)
         return;
     const attachVideoListener = (video) => {
         if (video.hasAttribute('data-acs-instagram-pro-video-listener'))
@@ -11760,7 +11770,7 @@ function instagramContentHasAISignals(article) {
  * 5s after play: if 45+ sec and audio on, sends for AI voice detection (once per video).
  */
 function onInstagramFeedVideoPlay(e) {
-    if (!blockInstagramProVideo || !isProUser)
+    if (!blockInstagramProVideo)
         return;
     const video = e.target;
     if (!video || video.tagName !== 'VIDEO')
@@ -11849,7 +11859,7 @@ function runInstagramBlocking() {
         chrome.storage.sync.get(['settings'], (result) => {
             const settings = result.settings || {};
             blockInstagramAIPosts = enabled && settings.blockInstagramAIPosts !== false;
-            isProUser = settings.isPro || false;
+            isProUser = true;
             chrome.storage.local.get(['blockYouTubeAIVoiceVideos'], (localResult) => {
                 const aiVoiceEnabled = localResult.blockYouTubeAIVoiceVideos === true;
                 blockInstagramProVideo = isProUser && blockInstagramAIPosts && aiVoiceEnabled;
@@ -13807,14 +13817,12 @@ function runFacebookBlocking() {
         // Check both sync and local storage for Facebook blocking settings
         chrome.storage.sync.get(['settings'], (result) => {
             const settings = result.settings || {};
-            const isPro = settings.isPro || false;
             // Basic Facebook pattern matching works for all users
             const basicFacebookEnabled = settings.blockFacebookAIPosts !== false;
             const linkedInFacebookEnabled = settings.blockLinkedinFacebookAIContent !== false;
             // Basic Facebook blocking (pattern matching) works for all users
             blockFacebookAIPosts = enabled && basicFacebookEnabled;
-            // AI text detection only works for PRO users with LinkedIn/Facebook setting enabled
-            enableAITextDetection = isPro && linkedInFacebookEnabled;
+            enableAITextDetection = linkedInFacebookEnabled;
             if (isFacebookReelPage()) {
                 restoreFacebookAIPosts();
                 if (blockFacebookAIPosts) {
@@ -14354,10 +14362,8 @@ function runLinkedInBlocking() {
     (0,common/* getBlockingState */.dQ)((enabled) => {
         chrome.storage.sync.get(['settings'], (result) => {
             const settings = result.settings || {};
-            const isPro = settings.isPro || false;
             const linkedInFacebookEnabled = settings.blockLinkedinFacebookAIContent !== false;
-            // LinkedIn blocking only works with PRO subscription
-            blockLinkedInAIPosts = enabled && isPro && linkedInFacebookEnabled;
+            blockLinkedInAIPosts = enabled && linkedInFacebookEnabled;
             if (blockLinkedInAIPosts) {
                 observeLinkedInAIPosts();
                 // Initial blocking attempt
@@ -14982,7 +14988,7 @@ function startVideoNavigationMonitoring() {
             // Update current video ID immediately to prevent duplicate triggers
             currentVideoId = newVideoId;
             // Start detection for new video with debouncing
-            if (blockYouTubeAIVoiced && youtube_isProUser) {
+            if (blockYouTubeAIVoiced) {
                 navigationDetectionTimeout = window.setTimeout(() => {
                     navigationDetectionTimeout = null; // Clear reference
                     startAIVoiceDetection();
@@ -15391,9 +15397,6 @@ function showAIVoiceModal() {
         var _a, _b, _c, _d;
         // Remove all existing modals (avoid stale state from previous video)
         document.querySelectorAll('.ai-voice-modal').forEach((el) => el.remove());
-        // Check Pro status for Block Channel button (Pro only)
-        const syncResult = yield chrome.storage.sync.get(['settings']);
-        const isPro = ((_a = syncResult.settings) === null || _a === void 0 ? void 0 : _a.isPro) || false;
         const videoElement = getCurrentVideoElement();
         if (!videoElement)
             return;
@@ -15436,7 +15439,7 @@ function showAIVoiceModal() {
         // Create modal content with improved styling - responsive to page type
         // Pro users on watch page get wider modal to fit 3 buttons (Home, Subscriptions, Block Channel)
         const isShorts = window.location.pathname.startsWith('/shorts');
-        const showBlockChannel = isPro && !isShorts;
+        const showBlockChannel = !isShorts;
         const modalMinWidth = showBlockChannel
             ? '480px'
             : (isShorts ? '300px' : '380px');
@@ -16133,7 +16136,7 @@ function startAIVoiceDetection() {
             return;
         // Check PRO subscription and AI voice toggle (read from storage - may have changed since page load)
         const prefs = yield chrome.storage.local.get(['blockYouTubeAIVoiceVideos']);
-        if (!youtube_isProUser || prefs.blockYouTubeAIVoiceVideos !== true)
+        if (prefs.blockYouTubeAIVoiceVideos !== true)
             return;
         const videoElement = getCurrentVideoElement();
         if (!videoElement)
@@ -16176,7 +16179,7 @@ function startAIVoiceDetection() {
                         if (currentId !== videoId)
                             return;
                         const prefs = yield chrome.storage.local.get(['blockYouTubeAIVoiceVideos']);
-                        if (prefs.blockYouTubeAIVoiceVideos === true && youtube_isProUser) {
+                        if (prefs.blockYouTubeAIVoiceVideos === true) {
                             showAIVoiceModal();
                         }
                     }
@@ -16970,12 +16973,12 @@ function runYouTubeBlocking() {
             const settings = result.settings || {};
             blockYouTubeAI = enabled && settings.blockYouTubeAI !== false;
             // Update PRO feature settings
-            youtube_isProUser = settings.isPro || false;
+            youtube_isProUser = true;
             // Check PRO-specific setting from local storage (following pattern of other PRO features)
             chrome.storage.local.get(['blockYouTubeAIVoiceVideos'], (localResult) => {
                 const localSettings = localResult || {};
                 const aiVoiceEnabled = localSettings.blockYouTubeAIVoiceVideos !== false;
-                blockYouTubeAIVoiced = youtube_isProUser && enabled && aiVoiceEnabled;
+                blockYouTubeAIVoiced = enabled && aiVoiceEnabled;
                 // Start AI voice detection monitoring if conditions are met (prevent duplicate initialization)
                 if (blockYouTubeAI && blockYouTubeAIVoiced && !isInitialized) {
                     isInitialized = true;
@@ -21079,7 +21082,7 @@ function getTikTokVideoAudioOn(container) {
 function runTikTokProVoiceDetectionBase(container, videoKey) {
     return tiktok_awaiter(this, void 0, void 0, function* () {
         var _a, _b;
-        if (!blockTikTokAIVoiced || !tiktok_isProUser)
+        if (!blockTikTokAIVoiced)
             return;
         if (videoContainerMatchesAI(container))
             return;
@@ -21137,7 +21140,7 @@ function runTikTokProVoiceDetectionBase(container, videoKey) {
  * Schedule Pro voice detection to run 5s after video change (so progress bar has time to load).
  */
 function scheduleTikTokProVoiceDetection(videoKey, isVideoPage) {
-    if (!blockTikTokAIVoiced || !tiktok_isProUser)
+    if (!blockTikTokAIVoiced)
         return;
     if (videoKey === tiktokProVoiceScheduledKey)
         return; // Already scheduled for this video
@@ -21173,7 +21176,7 @@ function scheduleTikTokProVoiceDetection(videoKey, isVideoPage) {
  * Handle feed video change (scroll or arrow key). Find current article and schedule detection.
  */
 function onFeedVideoChangeDetected() {
-    if (!blockTikTokAIVoiced || !tiktok_isProUser || isVideoPage())
+    if (!blockTikTokAIVoiced || isVideoPage())
         return;
     const article = getCurrentFeedArticle();
     if (!article)
@@ -21437,10 +21440,10 @@ function runTikTokBlocking() {
         chrome.storage.sync.get(['settings'], (result) => {
             const settings = result.settings || {};
             blockTikTokAIPosts = enabled && settings.blockYouTubeAI !== false;
-            tiktok_isProUser = settings.isPro || false;
+            tiktok_isProUser = true;
             chrome.storage.local.get(['blockYouTubeAIVoiceVideos'], (localResult) => {
                 const aiVoiceEnabled = localResult.blockYouTubeAIVoiceVideos === true;
-                blockTikTokAIVoiced = tiktok_isProUser && blockTikTokAIPosts && aiVoiceEnabled;
+                blockTikTokAIVoiced = blockTikTokAIPosts && aiVoiceEnabled;
                 if (blockTikTokAIPosts) {
                     if (blockTikTokAIVoiced)
                         addFeedVideoChangeListeners();
@@ -23234,14 +23237,11 @@ function shouldExcludeCurrentSite() {
             // Check if user has PRO subscription and news blocking is enabled
             chrome.storage.sync.get(['settings'], (result) => {
                 const settings = result.settings || {};
-                const isPro = settings.isPro || false;
                 const newsBlockingEnabled = settings.blockNewsAIContent === true; // Must be explicitly enabled
-                if (isPro && newsBlockingEnabled) {
-                    // User has PRO and wants news blocking - allow general blocking
+                if (newsBlockingEnabled) {
                     resolve(false);
                 }
                 else {
-                    // User doesn't have PRO or disabled news blocking - exclude from general blocking
                     resolve(true);
                 }
             });
@@ -23977,18 +23977,6 @@ function initializeCustomKeywords() {
     return content_awaiter(this, void 0, void 0, function* () {
         var _a;
         try {
-            // First check if user has PRO subscription
-            const settings = yield ext.storage.sync.get(['settings']);
-            const isPro = ((_a = settings.settings) === null || _a === void 0 ? void 0 : _a.isPro) || false;
-            // If not PRO, disable custom keywords entirely
-            // Note: This only clears runtime patterns, stored keywords remain intact
-            if (!isPro) {
-                window.customKeywordPatterns = [];
-                window.customKeywordsForExactMatch = [];
-                window.enableCustomKeywordsForSearchCheck = false;
-                return;
-            }
-            // Only proceed if user has PRO
             const result = yield ext.storage.local.get(['enableCustomKeywords', 'customKeywords']);
             window.enableCustomKeywordsForSearchCheck = result.enableCustomKeywords === true;
             if (result.enableCustomKeywords && result.customKeywords) {
@@ -24088,9 +24076,7 @@ if (isOtherProOnlySite) {
         // Check if user has PRO subscription AND LinkedIn/Facebook blocking is enabled
         ext.storage.sync.get(['settings'], (result) => {
             const settings = result.settings || {};
-            const isPro = settings.isPro || false;
-            if (isPro) {
-                // Also check if the LinkedIn/Facebook blocking toggle is enabled
+            {
                 // Read from sync storage like other settings (not local storage)
                 const linkedInFacebookEnabled = settings.blockLinkedinFacebookAIContent === true;
                 if (linkedInFacebookEnabled) {
@@ -24099,12 +24085,12 @@ if (isOtherProOnlySite) {
             }
         });
     }
-    // Special case for Amazon & eBay - run blocking for PRO users with toggle enabled
+    // Special case for Amazon & eBay - handled by the imported blocker
     else if (hostname.includes('amazon.') || hostname.includes('ebay.')) {
         // Amazon & eBay blocking is handled by the imported amazon-ebay module
         // which automatically initializes and checks for Pro status and toggle
     }
-    // Other PRO-only sites (Gmail) have no blocking - they exit here
+    // Gmail is handled by its dedicated blocker.
 }
 else if (!isOtherProOnlySite) {
     // Handle all non-PRO-only sites (news sites, regular sites, etc.)

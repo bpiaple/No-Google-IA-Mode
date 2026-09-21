@@ -260,9 +260,6 @@
    "cancelAnytime": {
       "message": "Cancel anytime"
    },
-   "cancelSubscription": {
-      "message": "Cancel subscription"
-   },
    "changelog": {
       "message": "Changelog"
    },
@@ -593,9 +590,6 @@
    "loadingReferralLink": {
       "message": "Loading your referral link..."
    },
-   "manageSubscription": {
-      "message": "Manage Subscription"
-   },
    "messageCopiedFacebook": {
       "message": "Message copied to clipboard! The Facebook sharing dialog will open - you can paste the message there."
    },
@@ -656,9 +650,6 @@
    "operaSearchNoticeTitle": {
       "message": "Opera: enable search blocking"
    },
-   "paymentProvidersAlt": {
-      "message": "Payment Providers"
-   },
    "perMonth": {
       "message": "/month"
    },
@@ -695,9 +686,6 @@
    "proFeatures": {
       "message": "PRO Features"
    },
-   "proPrice": {
-      "message": "$4.95"
-   },
    "proTitle": {
       "message": "PRO"
    },
@@ -715,9 +703,6 @@
    },
    "referralDescription": {
       "message": "Copy and share this link with friends to earn rewards"
-   },
-   "renewSubscription": {
-      "message": "Renew subscription"
    },
    "reportBug": {
       "message": "Report a bug"
@@ -929,9 +914,6 @@
    "starShareIconTooltip": {
       "message": "You're a Star - Thanks for sharing AICS"
    },
-   "startFreeTrial": {
-      "message": "Start free trial"
-   },
    "statsTitle": {
       "message": "Blocking Statistics"
    },
@@ -955,21 +937,6 @@
    },
    "submit": {
       "message": "Submit"
-   },
-   "subscribe": {
-      "message": "Subscribe"
-   },
-   "subscribeButton": {
-      "message": "Subscribe"
-   },
-   "subscribePageDescription": {
-      "message": "Blocks more AI on YouTube, TikTok, Instagram, LinkedIn, Gmail & news sites - plus exclusive PRO features."
-   },
-   "subscriptionActive": {
-      "message": "Your PRO subscription is active"
-   },
-   "subscriptionExpires": {
-      "message": "Expires on"
    },
    "successfulReferral": {
       "message": "successful referral"
@@ -1021,18 +988,6 @@
    },
    "updatePageTitle": {
       "message": "AI Content Shield Update"
-   },
-   "upgrade": {
-      "message": "Unlock"
-   },
-   "upgradeNow": {
-      "message": "UPGRADE NOW"
-   },
-   "upgradeToPro": {
-      "message": "Upgrade to PRO"
-   },
-   "upgradeToUnlock": {
-      "message": "Upgrade to unlock"
    },
    "verificationCode": {
       "message": "Verification Code"

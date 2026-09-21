@@ -260,9 +260,6 @@
    "cancelAnytime": {
       "message": "Annuler à tout moment"
    },
-   "cancelSubscription": {
-      "message": "Annuler l'abonnement"
-   },
    "changelog": {
       "message": "Journal des modifications"
    },
@@ -596,9 +593,6 @@
    "loadingReferralLink": {
       "message": "Chargement de votre lien de parrainage..."
    },
-   "manageSubscription": {
-      "message": "Gérer l'abonnement"
-   },
    "messageCopiedFacebook": {
       "message": "Message copié dans le presse-papiers ! La boîte de dialogue de partage Facebook va s'ouvrir - vous pouvez y coller le message."
    },
@@ -659,9 +653,6 @@
    "operaSearchNoticeTitle": {
       "message": "Opera : activer le blocage de recherche"
    },
-   "paymentProvidersAlt": {
-      "message": "Fournisseurs de Paiement"
-   },
    "perMonth": {
       "message": "/mois"
    },
@@ -698,9 +689,6 @@
    "proFeatures": {
       "message": "Fonctionnalités PRO"
    },
-   "proPrice": {
-      "message": "€4,95"
-   },
    "proTitle": {
       "message": "PRO"
    },
@@ -718,9 +706,6 @@
    },
    "referralDescription": {
       "message": "Copiez et partagez ce lien avec des amis pour gagner des récompenses"
-   },
-   "renewSubscription": {
-      "message": "Renouveler l'abonnement"
    },
    "reportBug": {
       "message": "Signaler un bug"
@@ -923,9 +908,6 @@
    "starShareIconTooltip": {
       "message": "Vous êtes une Star - Merci d'avoir partagé AICS"
    },
-   "startFreeTrial": {
-      "message": "Commencer l'essai gratuit"
-   },
    "statsTitle": {
       "message": "Statistiques de blocage"
    },
@@ -949,21 +931,6 @@
    },
    "submit": {
       "message": "Soumettre"
-   },
-   "subscribe": {
-      "message": "S'abonner"
-   },
-   "subscribeButton": {
-      "message": "S'abonner"
-   },
-   "subscribePageDescription": {
-      "message": "Bloque plus d'IA sur YouTube, TikTok, Instagram, LinkedIn, Gmail et sites d'actualités - plus les fonctionnalités PRO exclusives."
-   },
-   "subscriptionActive": {
-      "message": "Votre abonnement PRO est actif"
-   },
-   "subscriptionExpires": {
-      "message": "Expire le"
    },
    "successfulReferral": {
       "message": "parrainage réussi"
@@ -1018,18 +985,6 @@
    },
    "updatePageTitle": {
       "message": "Mise à jour d'AI Content Shield"
-   },
-   "upgrade": {
-      "message": "Débloquer"
-   },
-   "upgradeNow": {
-      "message": "METTRE À NIVEAU MAINTENANT"
-   },
-   "upgradeToPro": {
-      "message": "Passer à PRO"
-   },
-   "upgradeToUnlock": {
-      "message": "Mettre à niveau pour débloquer"
    },
    "verificationCode": {
       "message": "Code de vérification"
