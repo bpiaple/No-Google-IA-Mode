@@ -30,7 +30,7 @@
    "manifest_version": 3,
    "name": "Ville de Rimouski / Pas de Mode IA Google",
    "permissions": [ "storage", "activeTab", "scripting", "tabs" ],
-   "version": "1.0.5",
+   "version": "1.0.7",
    "web_accessible_resources": [ {
       "matches": [ "\u003Call_urls>" ],
       "resources": [ "icons/*", "site-policy.json" ]

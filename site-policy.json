@@ -4,6 +4,5 @@
     "*.qc.ca"
   ],
   "allowedDomains": [
-    "*.google.com"
   ]
 }
